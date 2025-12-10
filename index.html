@@ -3,61 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bien d'Exception - Location Courte Durée</title>
+    <title>Studio de l'horloge Lyon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* === CORRECTION DU PROBLÈME DE MENU === */
-        html {
-            /* Cela crée une zone tampon en haut pour que le menu ne cache pas le texte */
-            scroll-padding-top: 130px; 
-        }
-
+        /* Styles Personnalisés (Glassmorphism) */
+        html { scroll-padding-top: 130px; }
         body {
             font-family: 'Inter', sans-serif;
-            color: #1d1d1f; /* Texte sombre pour un contraste élevé */
-            /* NOUVEAUTÉ : Image de fond floutée pour le contexte (REMPLACEZ L'URL !) */
-            background-image: url('https://images.unsplash.com/photo-1570191965825-9772d53c5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            color: #1d1d1f; 
+            /* NOUVELLE URL (ou tu peux en trouver une autre sur Unsplash) */
+            background-image: url('https://images.unsplash.com/photo-1522708323590-d24db6b0b99d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
-            background-attachment: fixed; /* L'image ne bouge pas, ce qui est très premium */
+            background-attachment: fixed;
+}
         }
-        
-        /* Flou appliqué à l'ensemble du fond */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.4); /* Couche blanche semi-transparente */
-            backdrop-filter: blur(10px); /* Flou plus subtil pour le fond */
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
             z-index: -1;
         }
-
-        /* La classe Magique "Glass" */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.7); /* Légèrement moins transparent */
-            backdrop-filter: blur(25px); /* Plus de flou pour un meilleur effet */
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.2); /* Ombre plus prononcée */
+            box-shadow: 0 10px 40px 0 rgba(31, 38, 135, 0.2);
         }
-        
-        /* Amélioration pour la lisibilité du titre sur la première image */
-        .hero-caption {
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Ombre plus foncée pour faire ressortir le texte blanc */
-        }
-        
-        /* Masquer la barre de défilement pour la galerie tout en gardant le scroll */
+        .hero-caption { text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Style pour l'animation de la galerie */
-        .smooth-scroll {
-            scroll-behavior: smooth;
-        }
+        .smooth-scroll { scroll-behavior: smooth; }
     </style>
 </head>
 <body class="antialiased min-h-screen p-4 md:p-8">
@@ -82,7 +62,8 @@
             <img src="./casa.jpeg" 
                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Vue du bien">
             
-            <div class="absolute inset-0 bg-black/10"></div> <div class="absolute bottom-8 left-8 right-8 md:w-1/2 md:bottom-12 md:left-12 text-white">
+            <div class="absolute inset-0 bg-black/10"></div> 
+            <div class="absolute bottom-8 left-8 right-8 md:w-1/2 md:bottom-12 md:left-12 text-white">
                 <div class="glass-panel p-8 rounded-3xl text-black hero-caption">
                     <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight text-white hero-caption">Studio De l'Horloge Lyon</h1>
                     <p class="text-lg text-white/90 mb-6 hero-caption">"L'excellence au cœur de la ville. Confort de luxe et design minimaliste."</p>
@@ -108,13 +89,18 @@
                     <div class="text-6xl font-extrabold mb-2 text-blue-600">30<span class="text-2xl text-gray-500 font-medium ml-1">m²</span></div>
                     <p class="text-gray-500 font-medium">Surface habitable</p>
                     <div class="mt-6 flex gap-6">
+                        
                         <div class="text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-black mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-10a1 1 0 011-1h2a1 1 0 011 1v10m-6 0h6"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-black mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-10a1 1 0 011-1h2a1 1 0 011 1v10m-6 0h6"/>
+                            </svg>
                             <span class="block text-xl font-bold">1</span>
-                            <span class="text-xs text-gray-500">Chambres</span>
+                            <span class="text-xs text-gray-500">Chambre</span>
                         </div>
                         <div class="text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-black mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-black mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
                             <span class="block text-xl font-bold">4</span>
                             <span class="text-xs text-gray-500">Voyageurs</span>
                         </div>
@@ -128,7 +114,7 @@
 
                 <div class="glass-panel p-6 rounded-3xl flex flex-col items-center justify-center gap-2 transition hover:shadow-2xl hover:bg-white/80 duration-300 cursor-default">
                     <img src="https://img.icons8.com/ink/50/tv.png" alt="Icône Télévision" class="h-8 w-8 object-contain">
-                    <span class="font-medium">Télèvision</span>
+                    <span class="font-medium">Télévision</span>
                 </div>
                 
                 <div class="glass-panel p-6 rounded-3xl flex flex-col items-center justify-center gap-2 transition hover:shadow-2xl hover:bg-white/80 duration-300 cursor-default">
@@ -146,7 +132,7 @@
                     <span class="font-medium">Clic clac</span>
                 </div>
                 
-                </div>
+            </div>
         </section>
 
         <section id="gallery" class="py-8">
@@ -154,13 +140,22 @@
             <div id="gallery-container" class="flex overflow-x-auto gap-6 pb-8 no-scrollbar snap-x snap-mandatory px-4 smooth-scroll rounded-xl" style=" padding-top: 32px;">
                 
                 <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] rounded-3xl overflow-hidden relative shadow-2xl transition hover:scale-[1.02] duration-300 cursor-pointer gallery-item">
-                    <img src="./chanbre.jpeg" data-src="./chanbre.png" class="absolute inset-0 w-full h-full object-cover" alt="chambre">
+                    <img src="./chambre.jpeg" data-src="./chambre.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="chambre">
                 </div>
                 <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] rounded-3xl overflow-hidden relative shadow-2xl transition hover:scale-[1.02] duration-300 cursor-pointer gallery-item">
-                    <img src="./relax.jpeg" data-src="./relax.jpg" class="absolute inset-0 w-full h-full object-cover" alt="coin fenttre">
+                    <img src="./relax.jpeg" data-src="./relax.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="coin fenêtre">
                 </div>
                 <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] rounded-3xl overflow-hidden relative shadow-2xl transition hover:scale-[1.02] duration-300 cursor-pointer gallery-item">
-                    <img src="./cuisine.jpeg" data-src="./cuisine.jpg" class="absolute inset-0 w-full h-full object-cover" alt="cusine">
+                    <img src="./casa.jpeg" data-src="./casa.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="cuisine">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] rounded-3xl overflow-hidden relative shadow-2xl transition hover:scale-[1.02] duration-300 cursor-pointer gallery-item">
+                    <img src="./cuisine.jpeg" data-src="./cuisine.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="cuisine">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] rounded-3xl overflow-hidden relative shadow-2xl transition hover:scale-[1.02] duration-300 cursor-pointer gallery-item">
+                    <img src="./salledb1.jpeg" data-src="./salledb1.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="Salle de bain">
+                </div>
+                <div class="snap-center shrink-0 w-[85vw] md:w-[400px] h-[500px] rounded-3xl overflow-hidden relative shadow-2xl transition hover:scale-[1.02] duration-300 cursor-pointer gallery-item">
+                    <img src="./salledb2.jpeg" data-src="./salledb2.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="Salle de bain">
                 </div>
                 
             </div>
@@ -187,18 +182,18 @@
         </section>
 
         <footer class="text-center text-black/60 text-sm pb-8">
-    <div class="mb-2 space-x-4 font-medium text-black/80">
-        <a href="tel:+33652866926" class="hover:text-blue-600 transition duration-200">
-            +33 6 52 86 69 26
-        </a>
-        <span class="text-black/40">|</span>
-        <a href="mailto:alexandrefernandescouto@gmail.com" class="hover:text-blue-600 transition duration-200">
-            alexandrefernandescouto@gmail.com
-        </a>
-    </div>
-    
-    <p>&copy; 2024 Studio De l'Horle. Design inspiré par l'excellence.</p>
-</footer>
+            <div class="mb-2 space-x-4 font-medium text-black/80">
+                <a href="tel:+33652866926" class="hover:text-blue-600 transition duration-200">
+                    +33 6 52 86 69 26
+                </a>
+                <span class="text-black/40">|</span>
+                <a href="mailto:alexandrefernandescouto@gmail.com" class="hover:text-blue-600 transition duration-200">
+                    alexandrefernandescouto@gmail.com
+                </a>
+            </div>
+            
+            <p>&copy; 2024 Studio De l'Horloge. Design inspiré par l'excellence.</p>
+        </footer>
 
     </main>
 
@@ -212,28 +207,21 @@
     </div>
 
     <script>
-        // === GESTION DE L'AUTOSCROLL (Défilement Doux) ===
         const galleryContainer = document.getElementById('gallery-container');
-        const scrollDuration = 3000; // Défilement toutes les 3 secondes
+        const scrollDuration = 3000;
         let currentScroll = 0;
 
         function autoScroll() {
             if (!galleryContainer) return;
-
             const scrollWidth = galleryContainer.scrollWidth;
             const clientWidth = galleryContainer.clientWidth;
             const scrollMax = scrollWidth - clientWidth;
-            
-            // Largeur de l'élément à défiler (premier élément dans ce cas, car snap-mandatory)
             const firstItem = galleryContainer.querySelector('.gallery-item');
-            const itemWidth = firstItem ? firstItem.offsetWidth + 24 : clientWidth; // 24 = gap-6 (1.5rem * 16px/rem)
+            const itemWidth = firstItem ? firstItem.offsetWidth + 24 : clientWidth; 
             
-            // Calcul du nouveau défilement
             if (currentScroll + itemWidth >= scrollMax) {
-                // Si on atteint la fin, retour au début
                 currentScroll = 0;
             } else {
-                // Sinon, on avance d'un bloc (un item)
                 currentScroll += itemWidth;
             }
 
@@ -247,8 +235,6 @@
             setInterval(autoScroll, scrollDuration);
         }
 
-
-        // === GESTION DE LA MODALE (Lightbox) ===
         const modal = document.getElementById('image-modal');
         const modalImage = document.getElementById('modal-image');
         const closeModalButton = document.getElementById('close-modal');
@@ -260,27 +246,22 @@
                 modalImage.src = imgSrc;
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
-                document.body.style.overflow = 'hidden'; // Empêche le défilement du fond
+                document.body.style.overflow = 'hidden';
             });
         });
 
-        // Fonction pour fermer la modale
         function closeModal() {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-            document.body.style.overflow = ''; // Rétablit le défilement du fond
+            document.body.style.overflow = '';
         }
 
         closeModalButton.addEventListener('click', closeModal);
-
-        // Fermer la modale si l'utilisateur clique en dehors de l'image (sur l'arrière-plan noir)
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
-        
-        // Fermer avec la touche ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
                 closeModal();
