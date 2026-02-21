@@ -2,15 +2,17 @@
 <html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <meta property="og:title" content="Studio De L'horloge Lyon">
     <meta property="og:description" content="Un cocon élégant au cœur de Lyon, où le charme du temps rencontre le confort moderne.">
     <meta property="og:image" content="./casa.jpeg">
     <meta property="og:url" content="https://votre-site-web.com">
     <meta property="og:type" content="website">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="./casa.jpeg">
-    <link rel="icon" type="image/png" href="./logo.png">
+    
     <title>Studio de l'horloge Lyon</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -138,7 +140,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-black mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                             </svg>
-                            <span class="block text-xl font-bold">2</span>
+                            <span class="block text-xl font-bold">4</span>
                             <span class="text-xs text-gray-500">Voyageurs</span>
                         </div>
                     </div>
@@ -253,24 +255,35 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
     var calendar = new FullCalendar.Calendar(calendarEl, {
-        // Détermine la vue initiale immédiatement
-        initialView: window.innerWidth < 768 ? 'listMonth' : 'dayGridMonth',
+        // CHANGEMENT : On utilise 'dayGridMonth' par défaut même sur mobile
+        initialView: 'dayGridMonth', 
         locale: 'fr',
         handleWindowResize: true,
         height: 'auto', 
-        aspectRatio: window.innerWidth < 768 ? 0.8 : 1.35, // Plus haut que large sur mobile
+        
+        // CHANGEMENT : Ratio plus bas (ex: 0.65) sur mobile pour "étirer" la grille verticalement
+        aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35, 
+        
         headerToolbar: {
             left: 'prev,next today',
-            center: '',
-            right: 'title'
+            center: 'title', // Centrer le titre pour un meilleur équilibre sur petit écran
+            right: ''
         },
         buttonText: { today: "Aujourd'hui" },
         
-        
+        windowResize: function(view) {
+            // CHANGEMENT : On maintient la vue grille lors du redimensionnement
+            if (window.innerWidth < 768) {
+                calendar.setOption('aspectRatio', 0.65);
+            } else {
+                calendar.setOption('aspectRatio', 1.35);
+            }
+            calendar.updateSize();
+        },
 
         events: async function(info, successCallback, failureCallback) {
             try {
