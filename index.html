@@ -68,6 +68,17 @@
             border-radius: 6px;
         }
         .fc .fc-toolbar-title { font-weight: 800; font-size: 1.25rem !important; }
+        /* Style pour les jours passés */
+        .past-day {
+            background-color: #f4f4f4 !important; /* Gris très clair */
+            color: #cccccc; /* Texte grisé */
+            pointer-events: none; /* Optionnel : empêche de cliquer sur les jours passés */
+        }       
+        /* On peut aussi ajouter des hachures pour bien marquer l'indisponibilité */
+        .past-day {
+            background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 50%, #efefef 50%, #efefef 75%, transparent 75%, transparent);
+            background-size: 10px 10px;
+        }
 
         /* Navigation Galerie */
         .gallery-nav-btn {
@@ -282,6 +293,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 calendar.setOption('aspectRatio', 1.35);
             }
             calendar.updateSize();
+        },
+
+        dayCellDidMount: function(info) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // On remet à zéro pour comparer uniquement les jours
+        
+            if (info.date < today) {
+                // On ajoute une classe CSS personnalisée à la cellule
+                info.el.classList.add('past-day');
+                
+                // Optionnel : on peut aussi griser le numéro du jour spécifiquement
+                const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
+                if (dayNumber) {
+                    dayNumber.style.opacity = '0.3';
+                }
+            }
         },
 
         events: async function(info, successCallback, failureCallback) {
