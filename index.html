@@ -68,14 +68,10 @@
             border-radius: 6px;
         }
         .fc .fc-toolbar-title { font-weight: 800; font-size: 1.25rem !important; }
-        /* Style pour les jours passés */
         .past-day {
-            background-color: #f4f4f4 !important; /* Gris très clair */
-            color: #cccccc; /* Texte grisé */
-            pointer-events: none; /* Optionnel : empêche de cliquer sur les jours passés */
-        }       
-        /* On peut aussi ajouter des hachures pour bien marquer l'indisponibilité */
-        .past-day {
+            background-color: #f4f4f4 !important;
+            color: #cccccc;
+            pointer-events: none;
             background-image: linear-gradient(45deg, #efefef 25%, transparent 25%, transparent 50%, #efefef 50%, #efefef 75%, transparent 75%, transparent);
             background-size: 10px 10px;
         }
@@ -99,8 +95,8 @@
                 <a href="#home" class="hover:text-blue-600 transition duration-200">Accueil</a>
                 <a href="#details" class="hover:text-blue-600 transition duration-200">Détails</a>
                 <a href="#gallery" class="hover:text-blue-600 transition duration-200">Galerie</a>
+                <a href="#location" class="hover:text-blue-600 transition duration-200">Localisation</a>
                 <a href="#dispo" class="hover:text-blue-600 transition duration-200">Disponibilités</a>
-             <!--   <a href="URL" class="hover:text-blue-600 transition duration-200">Boutique</a> -->
             </div>
             <a href="#reserve" class="bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-700 transition transform hover:scale-105 shadow-md">
                 Réserver
@@ -220,6 +216,22 @@
             </div>
         </section>
 
+        <section id="location" class="py-8">
+            <div class="glass-panel rounded-3xl overflow-hidden shadow-2xl">
+                <div class="w-full h-[400px]">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2781.685140849592!2d4.825789500000001!3d45.7975353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4eba210868231%3A0x859d27097eba8924!2sStudio%20de%20l%E2%80%99horloge%20Lyon!5e0!3m2!1sfr!2sfr!4v1772480982644!5m2!1sfr!2sfr" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
         <section id="dispo" class="py-8">
             <div class="glass-panel rounded-3xl p-6 md:p-10 shadow-2xl">
                 <h2 class="text-3xl font-bold mb-8 text-center">Dates Disponibles</h2>
@@ -250,7 +262,7 @@
                 <span class="text-black/40">|</span>
                 <a href="mailto:alexandrefernandescouto@gmail.com" class="hover:text-blue-600 transition duration-200">alexandrefernandescouto@gmail.com</a>
             </div>
-            <p>&copy; 2025 Studio De l'Horloge Lyon. Design inspiré par l'excellence.</p>
+            <p>© 2025 Studio De l'Horloge Lyon. Design inspiré par l'excellence.</p>
         </footer>
     </main>
 
@@ -258,127 +270,103 @@
         <div class="relative max-w-5xl max-h-[90vh] mx-auto p-4">
             <img id="modal-image" src="" alt="Image agrandie" class="rounded-lg shadow-2xl max-h-[85vh] w-auto object-contain">
             <button id="close-modal" class="absolute top-4 right-4 text-white text-3xl font-bold bg-black/50 hover:bg-black/80 rounded-full w-10 h-10 flex items-center justify-center">
-                &times;
+                ×
             </button>
         </div>
     </div>
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        // CHANGEMENT : On utilise 'dayGridMonth' par défaut même sur mobile
-        initialView: 'dayGridMonth', 
-        locale: 'fr',
-        firstDay: 1, // AJOUT : Définit le lundi comme premier jour de la semaine
-        handleWindowResize: true,
-        height: 'auto', 
-        
-        // CHANGEMENT : Ratio plus bas (ex: 0.65) sur mobile pour "étirer" la grille verticalement
-        aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35, 
-        
-        headerToolbar: {
-            left: 'prev,next today',
-            center: '', // Centrer le titre pour un meilleur équilibre sur petit écran
-            right: 'title'
-        },
-        buttonText: { today: "Aujourd'hui" },
-        
-        windowResize: function(view) {
-            // CHANGEMENT : On maintient la vue grille lors du redimensionnement
-            if (window.innerWidth < 768) {
-                calendar.setOption('aspectRatio', 0.65);
-            } else {
-                calendar.setOption('aspectRatio', 1.35);
-            }
-            calendar.updateSize();
-        },
-
-        dayCellDidMount: function(info) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // On remet à zéro pour comparer uniquement les jours
-        
-            if (info.date < today) {
-                // On ajoute une classe CSS personnalisée à la cellule
-                info.el.classList.add('past-day');
-                
-                // Optionnel : on peut aussi griser le numéro du jour spécifiquement
-                const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
-                if (dayNumber) {
-                    dayNumber.style.opacity = '0.3';
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', 
+            locale: 'fr',
+            firstDay: 1,
+            handleWindowResize: true,
+            height: 'auto', 
+            aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35, 
+            headerToolbar: {
+                left: 'prev,next today',
+                center: '', 
+                right: 'title'
+            },
+            buttonText: { today: "Aujourd'hui" },
+            windowResize: function(view) {
+                if (window.innerWidth < 768) {
+                    calendar.setOption('aspectRatio', 0.65);
+                } else {
+                    calendar.setOption('aspectRatio', 1.35);
+                }
+                calendar.updateSize();
+            },
+            dayCellDidMount: function(info) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (info.date < today) {
+                    info.el.classList.add('past-day');
+                    const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
+                    if (dayNumber) dayNumber.style.opacity = '0.3';
+                }
+            },
+            events: async function(info, successCallback, failureCallback) {
+                try {
+                    const icalUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
+                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    const data = await response.text();
+                    const jcalData = ICAL.parse(data);
+                    const comp = new ICAL.Component(jcalData);
+                    const vevents = comp.getAllSubcomponents('vevent');
+                    const events = vevents.map(vevent => {
+                        const event = new ICAL.Event(vevent);
+                        return {
+                            title: 'OCCUPÉ',
+                            start: event.startDate.toString(),
+                            end: event.endDate.toString(),
+                            allDay: true,
+                            className: 'booked-event'
+                        };
+                    });
+                    successCallback(events);
+                } catch (error) {
+                    console.error('Erreur calendrier:', error);
+                    failureCallback(error);
                 }
             }
-        },
-
-        events: async function(info, successCallback, failureCallback) {
-            try {
-                const icalUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
-                const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
-                
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error('Erreur réseau');
-                
-                const data = await response.text();
-                const jcalData = ICAL.parse(data);
-                const comp = new ICAL.Component(jcalData);
-                const vevents = comp.getAllSubcomponents('vevent');
-
-                const events = vevents.map(vevent => {
-                    const event = new ICAL.Event(vevent);
-                    return {
-                        title: 'OCCUPÉ',
-                        start: event.startDate.toString(),
-                        end: event.endDate.toString(),
-                        allDay: true,
-                        className: 'booked-event'
-                    };
-                });
-                successCallback(events);
-            } catch (error) {
-                console.error('Erreur calendrier:', error);
-                failureCallback(error);
-            }
-        }
+        });
+        calendar.render();
     });
-    calendar.render();
-});
 
-        // --- LOGIQUE GALERIE (SANS AUTO-SCROLL + BOUTONS) ---
-        const galleryContainer = document.getElementById('gallery-container');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
+    const galleryContainer = document.getElementById('gallery-container');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    function getScrollAmount() {
+        const firstItem = galleryContainer.querySelector('.gallery-item');
+        return firstItem ? firstItem.offsetWidth + 24 : 300;
+    }
+    nextBtn.addEventListener('click', () => {
+        galleryContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    });
+    prevBtn.addEventListener('click', () => {
+        galleryContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+    });
 
-        function getScrollAmount() {
-            // Calcule la largeur d'un item + le gap pour un défilement propre
-            const firstItem = galleryContainer.querySelector('.gallery-item');
-            return firstItem ? firstItem.offsetWidth + 24 : 300;
-        }
-
-        nextBtn.addEventListener('click', () => {
-            galleryContainer.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('click', () => {
+            modalImage.src = item.querySelector('img').getAttribute('data-src');
+            modal.classList.replace('hidden', 'flex');
+            document.body.style.overflow = 'hidden';
         });
-
-        prevBtn.addEventListener('click', () => {
-            galleryContainer.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-        });
-
-        // --- MODAL ---
-        const modal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', () => {
-                modalImage.src = item.querySelector('img').getAttribute('data-src');
-                modal.classList.replace('hidden', 'flex');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        const closeModal = () => {
-            modal.classList.replace('flex', 'hidden');
-            document.body.style.overflow = '';
-        };
-        document.getElementById('close-modal').addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    });
+    const closeModal = () => {
+        modal.classList.replace('flex', 'hidden');
+        document.body.style.overflow = '';
+    };
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
     </script>
 </body>
 </html>
