@@ -276,108 +276,67 @@
     </div>
 
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const calendarEl = document.getElementById('calendar');
-
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        locale: 'fr',
-        firstDay: 1,
-        handleWindowResize: true,
-        height: 'auto',
-        aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35,
-        headerToolbar: {
-            left: 'prev,next today',
-            center: '',
-            right: 'title'
-        },
-        buttonText: { today: "Aujourd'hui" },
-
-        windowResize: function () {
-            calendar.setOption('aspectRatio', window.innerWidth < 768 ? 0.65 : 1.35);
-            calendar.updateSize();
-        },
-
-        dayCellDidMount: function (info) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (info.date < today) {
-                info.el.classList.add('past-day');
-                const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
-                if (dayNumber) dayNumber.style.opacity = '0.3';
-            }
-        },
-
-        events: async function (info, successCallback, failureCallback) {
-            try {
-                const icalUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
-                const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
-
-                const response = await fetch(proxyUrl, { cache: 'no-store' });
-                if (!response.ok) throw new Error('Erreur réseau');
-
-                const data = await response.text();
-                console.log('ICS brut :', data);
-
-                const jcalData = ICAL.parse(data);
-                const comp = new ICAL.Component(jcalData);
-                const vevents = comp.getAllSubcomponents('vevent');
-
-                const events = vevents.map((vevent) => {
-                    const event = new ICAL.Event(vevent);
-
-                    const summary = (vevent.getFirstPropertyValue('summary') || '').toString().toLowerCase();
-                    const description = (vevent.getFirstPropertyValue('description') || '').toString().toLowerCase();
-                    const status = (vevent.getFirstPropertyValue('status') || '').toString().toLowerCase();
-
-                    const startDate = event.startDate.toJSDate();
-                    const endDate = event.endDate.toJSDate();
-
-                    console.log({
-                        summary,
-                        description,
-                        status,
-                        startDate,
-                        endDate
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth', 
+            locale: 'fr',
+            firstDay: 1,
+            handleWindowResize: true,
+            height: 'auto', 
+            aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35, 
+            headerToolbar: {
+                left: 'prev,next today',
+                center: '', 
+                right: 'title'
+            },
+            buttonText: { today: "Aujourd'hui" },
+            windowResize: function(view) {
+                if (window.innerWidth < 768) {
+                    calendar.setOption('aspectRatio', 0.65);
+                } else {
+                    calendar.setOption('aspectRatio', 1.35);
+                }
+                calendar.updateSize();
+            },
+            dayCellDidMount: function(info) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (info.date < today) {
+                    info.el.classList.add('past-day');
+                    const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
+                    if (dayNumber) dayNumber.style.opacity = '0.3';
+                }
+            },
+            events: async function(info, successCallback, failureCallback) {
+                try {
+                    const icalUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
+                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    const data = await response.text();
+                    const jcalData = ICAL.parse(data);
+                    const comp = new ICAL.Component(jcalData);
+                    const vevents = comp.getAllSubcomponents('vevent');
+                    const events = vevents.map(vevent => {
+                        const event = new ICAL.Event(vevent);
+                        return {
+                            title: 'OCCUPÉ',
+                            start: event.startDate.toString(),
+                            end: event.endDate.toString(),
+                            allDay: true,
+                            className: 'booked-event'
+                        };
                     });
-
-                    let title = 'OCCUPÉ';
-                    let className = 'booked-event';
-
-                    // Détection des dates bloquées
-                    if (
-                        summary.includes('blocked') ||
-                        summary.includes('bloqué') ||
-                        summary.includes('indisponible') ||
-                        description.includes('blocked') ||
-                        description.includes('bloqué') ||
-                        description.includes('indisponible')
-                    ) {
-                        title = 'BLOQUÉ';
-                        className = 'blocked-event';
-                    }
-
-                    return {
-                        title,
-                        start: startDate.toISOString().split('T')[0],
-                        end: endDate.toISOString().split('T')[0],
-                        allDay: true,
-                        display: 'block',
-                        className
-                    };
-                });
-
-                successCallback(events);
-            } catch (error) {
-                console.error('Erreur calendrier:', error);
-                failureCallback(error);
+                    successCallback(events);
+                } catch (error) {
+                    console.error('Erreur calendrier:', error);
+                    failureCallback(error);
+                }
             }
-        }
+        });
+        calendar.render();
     });
-
-    calendar.render();
-});
 
     const galleryContainer = document.getElementById('gallery-container');
     const prevBtn = document.getElementById('prevBtn');
