@@ -292,7 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         buttonText: { today: "Aujourd'hui" },
 
-        // Gestion du redimensionnement (Mobile/Desktop)
         windowResize: function(view) {
             if (window.innerWidth < 768) {
                 calendar.setOption('aspectRatio', 0.65);
@@ -302,7 +301,6 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.updateSize();
         },
 
-        // Style pour griser les jours passés
         dayCellDidMount: function(info) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -313,26 +311,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-        // Chargement des données Airbnb + Booking
         events: async function(info, successCallback, failureCallback) {
             try {
-                // On regroupe tes deux liens iCal ici
                 const icalUrls = [
                     'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
-                    'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186'
+                    'https://ical.booking.com/v1/export/t/1f4e608d-a73e-49e0-9929-86583c544b41.ics'
                 ];
 
                 let allEvents = [];
 
-                // On boucle sur chaque lien pour récupérer les dates
                 for (const url of icalUrls) {
                     const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
                     const response = await fetch(proxyUrl);
                     
-                    if (!response.ok) {
-                        console.warn("Erreur lors de la récupération : " + url);
-                        continue;
-                    }
+                    if (!response.ok) continue;
 
                     const data = await response.text();
                     const jcalData = ICAL.parse(data);
@@ -341,24 +333,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     const platformEvents = vevents.map(vevent => {
                         const event = new ICAL.Event(vevent);
+                        
+                        // Utilisation de toJSDate() pour une meilleure compatibilité
+                        const startDate = event.startDate.toJSDate();
+                        const endDate = event.endDate.toJSDate();
+
                         return {
                             title: 'OCCUPÉ',
-                            start: event.startDate.toString(),
-                            end: event.endDate.toString(),
+                            start: startDate,
+                            end: endDate,
                             allDay: true,
                             className: 'booked-event'
                         };
                     });
 
-                    // On fusionne les résultats
                     allEvents = allEvents.concat(platformEvents);
                 }
 
-                // Affichage final sur le calendrier
+                console.log("Total des événements chargés :", allEvents.length);
                 successCallback(allEvents);
 
             } catch (error) {
-                console.error('Erreur lors du chargement des calendriers:', error);
+                console.error('Erreur calendrier:', error);
                 failureCallback(error);
             }
         }
