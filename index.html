@@ -321,17 +321,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             for (const url of icalUrls) {
                 try {
-                    // Utilisation d'un proxy alternatif (AllOrigins) si le premier pose souci
-                    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                    // On utilise corsproxy.io qui est plus direct
+                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
                     const response = await fetch(proxyUrl);
                     
                     if (!response.ok) continue;
 
-                    const json = await response.json();
-                    let data = json.contents;
+                    let data = await response.text();
 
-                    // Nettoyage crucial pour Booking : supprime les espaces/caractères avant "BEGIN:VCALENDAR"
-                    data = data.substring(data.indexOf("BEGIN:VCALENDAR"));
+                    // --- ÉTAPE CRUCIALE ---
+                    // On cherche le début réel du calendrier pour éviter les erreurs de formatage
+                    const startIndex = data.indexOf("BEGIN:VCALENDAR");
+                    if (startIndex === -1) continue; 
+                    data = data.substring(startIndex).trim();
 
                     const jcalData = ICAL.parse(data);
                     const comp = new ICAL.Component(jcalData);
@@ -351,8 +353,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     allEvents = allEvents.concat(platformEvents);
                 } catch (err) {
                     console.error("Erreur sur l'URL : " + url, err);
+                    // Si une URL plante, on continue quand même pour charger l'autre
                 }
             }
+            // On renvoie ce qu'on a réussi à charger
             successCallback(allEvents);
         }
     });
