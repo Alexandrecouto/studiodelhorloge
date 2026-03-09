@@ -276,49 +276,70 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth', 
-            locale: 'fr',
-            firstDay: 1,
-            handleWindowResize: true,
-            height: 'auto', 
-            aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35, 
-            headerToolbar: {
-                left: 'prev,next today',
-                center: '', 
-                right: 'title'
-            },
-            buttonText: { today: "Aujourd'hui" },
-            windowResize: function(view) {
-                if (window.innerWidth < 768) {
-                    calendar.setOption('aspectRatio', 0.65);
-                } else {
-                    calendar.setOption('aspectRatio', 1.35);
-                }
-                calendar.updateSize();
-            },
-            dayCellDidMount: function(info) {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                if (info.date < today) {
-                    info.el.classList.add('past-day');
-                    const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
-                    if (dayNumber) dayNumber.style.opacity = '0.3';
-                }
-            },
-            events: async function(info, successCallback, failureCallback) {
-                try {
-                    const icalUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
-                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth', 
+        locale: 'fr',
+        firstDay: 1,
+        handleWindowResize: true,
+        height: 'auto', 
+        aspectRatio: window.innerWidth < 768 ? 0.65 : 1.35, 
+        headerToolbar: {
+            left: 'prev,next today',
+            center: '', 
+            right: 'title'
+        },
+        buttonText: { today: "Aujourd'hui" },
+
+        // Gestion du redimensionnement (Mobile/Desktop)
+        windowResize: function(view) {
+            if (window.innerWidth < 768) {
+                calendar.setOption('aspectRatio', 0.65);
+            } else {
+                calendar.setOption('aspectRatio', 1.35);
+            }
+            calendar.updateSize();
+        },
+
+        // Style pour griser les jours passés
+        dayCellDidMount: function(info) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (info.date < today) {
+                info.el.classList.add('past-day');
+                const dayNumber = info.el.querySelector('.fc-daygrid-day-number');
+                if (dayNumber) dayNumber.style.opacity = '0.3';
+            }
+        },
+
+        // Chargement des données Airbnb + Booking
+        events: async function(info, successCallback, failureCallback) {
+            try {
+                // On regroupe tes deux liens iCal ici
+                const icalUrls = [
+                    'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
+                    'https://ical.booking.com/v1/export/t/1f4e608d-a73e-49e0-9929-86583c544b41.ics'
+                ];
+
+                let allEvents = [];
+
+                // On boucle sur chaque lien pour récupérer les dates
+                for (const url of icalUrls) {
+                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
                     const response = await fetch(proxyUrl);
-                    if (!response.ok) throw new Error('Erreur réseau');
+                    
+                    if (!response.ok) {
+                        console.warn("Erreur lors de la récupération : " + url);
+                        continue;
+                    }
+
                     const data = await response.text();
                     const jcalData = ICAL.parse(data);
                     const comp = new ICAL.Component(jcalData);
                     const vevents = comp.getAllSubcomponents('vevent');
-                    const events = vevents.map(vevent => {
+
+                    const platformEvents = vevents.map(vevent => {
                         const event = new ICAL.Event(vevent);
                         return {
                             title: 'OCCUPÉ',
@@ -328,15 +349,22 @@
                             className: 'booked-event'
                         };
                     });
-                    successCallback(events);
-                } catch (error) {
-                    console.error('Erreur calendrier:', error);
-                    failureCallback(error);
+
+                    // On fusionne les résultats
+                    allEvents = allEvents.concat(platformEvents);
                 }
+
+                // Affichage final sur le calendrier
+                successCallback(allEvents);
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des calendriers:', error);
+                failureCallback(error);
             }
-        });
-        calendar.render();
+        }
     });
+    calendar.render();
+});
 
     const galleryContainer = document.getElementById('gallery-container');
     const prevBtn = document.getElementById('prevBtn');
