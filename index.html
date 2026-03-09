@@ -293,11 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonText: { today: "Aujourd'hui" },
 
         windowResize: function(view) {
-            if (window.innerWidth < 768) {
-                calendar.setOption('aspectRatio', 0.65);
-            } else {
-                calendar.setOption('aspectRatio', 1.35);
-            }
+            calendar.setOption('aspectRatio', window.innerWidth < 768 ? 0.65 : 1.35);
             calendar.updateSize();
         },
 
@@ -311,61 +307,62 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-events: async function(info, successCallback, failureCallback) {
-    const icalUrls = [
-        { name: 'Airbnb', url: 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda' },
-        { name: 'Booking', url: 'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186' }
-    ];
-
-    let allEvents = [];
-
-    for (const item of icalUrls) {
-        try {
-            // Changement de proxy pour AllOrigins (plus discret)
-            // On ajoute un paramètre aléatoire cache=... pour forcer Booking à répondre
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(item.url)}&timestamp=${new Date().getTime()}`;
-            
-            const response = await fetch(proxyUrl);
-            if (!response.ok) throw new Error('Erreur Proxy');
-            
-            const json = await response.json();
-            const data = json.contents; // AllOrigins renvoie le texte dans 'contents'
-
-            if (!data) continue;
-
-            const lines = data.split(/\r?\n/);
-            let currentEvent = null;
-
-            lines.forEach(line => {
-                if (line.startsWith('BEGIN:VEVENT')) {
-                    currentEvent = {};
-                } else if (line.startsWith('DTSTART')) {
-                    const match = line.match(/:(\d{8})/);
-                    if (match) currentEvent.start = match[1];
-                } else if (line.startsWith('DTEND')) {
-                    const match = line.match(/:(\d{8})/);
-                    if (match) currentEvent.end = match[1];
-                } else if (line.startsWith('END:VEVENT')) {
-                    if (currentEvent && currentEvent.start && currentEvent.end) {
-                        const s = currentEvent.start;
-                        const e = currentEvent.end;
-                        allEvents.push({
-                            title: 'OCCUPÉ',
-                            start: `${s.substring(0,4)}-${s.substring(4,6)}-${s.substring(6,8)}`,
-                            end: `${e.substring(0,4)}-${e.substring(4,6)}-${e.substring(6,8)}`,
-                            allDay: true,
-                            className: 'booked-event'
-                        });
-                    }
-                    currentEvent = null;
+        events: async function(info, successCallback, failureCallback) {
+            // Configuration spécifique pour chaque source
+            const sources = [
+                { 
+                    name: 'Airbnb', 
+                    url: 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
+                    proxy: (u) => 'https://corsproxy.io/?' + encodeURIComponent(u)
+                },
+                { 
+                    name: 'Booking', 
+                    url: 'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186',
+                    // On utilise le proxy de Cloudflare (plus robuste contre les 403)
+                    proxy: (u) => 'https://cors-anywhere.azm.workers.dev/' + u 
                 }
-            });
-        } catch (err) {
-            console.error("Erreur sur : " + item.name, err);
+            ];
+
+            let allEvents = [];
+
+            for (const item of sources) {
+                try {
+                    const response = await fetch(item.proxy(item.url));
+                    if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+                    
+                    const text = await response.text();
+                    const lines = text.split(/\r?\n/);
+                    let currentEvent = null;
+
+                    lines.forEach(line => {
+                        if (line.includes('BEGIN:VEVENT')) {
+                            currentEvent = {};
+                        } else if (line.includes('DTSTART')) {
+                            const m = line.match(/:(\d{8})/);
+                            if (m) currentEvent.start = m[1];
+                        } else if (line.includes('DTEND')) {
+                            const m = line.match(/:(\d{8})/);
+                            if (m) currentEvent.end = m[1];
+                        } else if (line.includes('END:VEVENT')) {
+                            if (currentEvent && currentEvent.start && currentEvent.end) {
+                                allEvents.push({
+                                    title: 'OCCUPÉ',
+                                    start: `${currentEvent.start.substring(0,4)}-${currentEvent.start.substring(4,6)}-${currentEvent.start.substring(6,8)}`,
+                                    end: `${currentEvent.end.substring(0,4)}-${currentEvent.end.substring(4,6)}-${currentEvent.end.substring(6,8)}`,
+                                    allDay: true,
+                                    className: 'booked-event'
+                                });
+                            }
+                            currentEvent = null;
+                        }
+                    });
+                    console.log(`${item.name} synchronisé.`);
+                } catch (err) {
+                    console.error(`Échec pour ${item.name}:`, err);
+                }
+            }
+            successCallback(allEvents);
         }
-    }
-    successCallback(allEvents);
-}
     });
     calendar.render();
 });
