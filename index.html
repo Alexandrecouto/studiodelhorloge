@@ -311,55 +311,61 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-        events: async function(info, successCallback, failureCallback) {
-            const icalUrls = [
-                'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
-                'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186'
-            ];
+events: async function(info, successCallback, failureCallback) {
+    const icalUrls = [
+        { name: 'Airbnb', url: 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda' },
+        { name: 'Booking', url: 'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186' }
+    ];
 
-            let allEvents = [];
+    let allEvents = [];
 
-            for (const url of icalUrls) {
-                try {
-                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-                    const response = await fetch(proxyUrl);
-                    if (!response.ok) continue;
+    for (const item of icalUrls) {
+        try {
+            // Changement de proxy pour AllOrigins (plus discret)
+            // On ajoute un paramètre aléatoire cache=... pour forcer Booking à répondre
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(item.url)}&timestamp=${new Date().getTime()}`;
+            
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error('Erreur Proxy');
+            
+            const json = await response.json();
+            const data = json.contents; // AllOrigins renvoie le texte dans 'contents'
 
-                    const text = await response.text();
-                    const lines = text.split(/\r?\n/);
-                    let currentEvent = null;
+            if (!data) continue;
 
-                    lines.forEach(line => {
-                        if (line.startsWith('BEGIN:VEVENT')) {
-                            currentEvent = {};
-                        } else if (line.startsWith('DTSTART')) {
-                            const match = line.match(/:(\d{8})/);
-                            if (match && currentEvent) currentEvent.start = match[1];
-                        } else if (line.startsWith('DTEND')) {
-                            const match = line.match(/:(\d{8})/);
-                            if (match && currentEvent) currentEvent.end = match[1];
-                        } else if (line.startsWith('END:VEVENT')) {
-                            if (currentEvent && currentEvent.start && currentEvent.end) {
-                                // Conversion format YYYYMMDD -> YYYY-MM-DD
-                                const s = currentEvent.start;
-                                const e = currentEvent.end;
-                                allEvents.push({
-                                    title: 'OCCUPÉ',
-                                    start: `${s.substring(0,4)}-${s.substring(4,6)}-${s.substring(6,8)}`,
-                                    end: `${e.substring(0,4)}-${e.substring(4,6)}-${e.substring(6,8)}`,
-                                    allDay: true,
-                                    className: 'booked-event'
-                                });
-                            }
-                            currentEvent = null;
-                        }
-                    });
-                } catch (err) {
-                    console.error("Erreur sur : " + url, err);
+            const lines = data.split(/\r?\n/);
+            let currentEvent = null;
+
+            lines.forEach(line => {
+                if (line.startsWith('BEGIN:VEVENT')) {
+                    currentEvent = {};
+                } else if (line.startsWith('DTSTART')) {
+                    const match = line.match(/:(\d{8})/);
+                    if (match) currentEvent.start = match[1];
+                } else if (line.startsWith('DTEND')) {
+                    const match = line.match(/:(\d{8})/);
+                    if (match) currentEvent.end = match[1];
+                } else if (line.startsWith('END:VEVENT')) {
+                    if (currentEvent && currentEvent.start && currentEvent.end) {
+                        const s = currentEvent.start;
+                        const e = currentEvent.end;
+                        allEvents.push({
+                            title: 'OCCUPÉ',
+                            start: `${s.substring(0,4)}-${s.substring(4,6)}-${s.substring(6,8)}`,
+                            end: `${e.substring(0,4)}-${e.substring(4,6)}-${e.substring(6,8)}`,
+                            allDay: true,
+                            className: 'booked-event'
+                        });
+                    }
+                    currentEvent = null;
                 }
-            }
-            successCallback(allEvents);
+            });
+        } catch (err) {
+            console.error("Erreur sur : " + item.name, err);
         }
+    }
+    successCallback(allEvents);
+}
     });
     calendar.render();
 });
