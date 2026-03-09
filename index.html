@@ -312,56 +312,55 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         events: async function(info, successCallback, failureCallback) {
-            const icalUrls = [
-                'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
-                'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186'
-            ];
+    const icalUrls = [
+        'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
+        'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186'
+    ];
 
-            let allEvents = [];
+    let allEvents = [];
 
-            for (const url of icalUrls) {
-                try {
-                    // On utilise corsproxy.io qui est plus direct
-                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
-                    const response = await fetch(proxyUrl);
-                    
-                    if (!response.ok) continue;
+    for (const url of icalUrls) {
+        try {
+            const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+            const response = await fetch(proxyUrl);
+            if (!response.ok) continue;
 
-                    let data = await response.text();
+            const data = await response.text();
+            
+            // On divise le fichier par événement (VEVENT)
+            const vevents = data.split("BEGIN:VEVENT");
+            vevents.shift(); // On enlève l'entête du calendrier
 
-                    // --- ÉTAPE CRUCIALE ---
-                    // On cherche le début réel du calendrier pour éviter les erreurs de formatage
-                    const startIndex = data.indexOf("BEGIN:VCALENDAR");
-                    if (startIndex === -1) continue; 
-                    data = data.substring(startIndex).trim();
+            vevents.forEach(vevent => {
+                // Extraction manuelle des dates DTSTART et DTEND
+                const startMatch = vevent.match(/DTSTART;?.*:(.*)/);
+                const endMatch = vevent.match(/DTEND;?.*:(.*)/);
 
-                    const jcalData = ICAL.parse(data);
-                    const comp = new ICAL.Component(jcalData);
-                    const vevents = comp.getAllSubcomponents('vevent');
+                if (startMatch && endMatch) {
+                    let startStr = startMatch[1].trim();
+                    let endStr = endMatch[1].trim();
 
-                    const platformEvents = vevents.map(vevent => {
-                        const event = new ICAL.Event(vevent);
-                        return {
-                            title: 'OCCUPÉ',
-                            start: event.startDate.toJSDate(),
-                            end: event.endDate.toJSDate(),
-                            allDay: true,
-                            className: 'booked-event'
-                        };
+                    // Formatage simple AAAAMMDD -> AAAA-MM-DD
+                    const formatIcalDate = (str) => {
+                        return `${str.substring(0,4)}-${str.substring(4,6)}-${str.substring(6,8)}`;
+                    };
+
+                    allEvents.push({
+                        title: 'OCCUPÉ',
+                        start: formatIcalDate(startStr),
+                        end: formatIcalDate(endStr),
+                        allDay: true,
+                        className: 'booked-event'
                     });
-
-                    allEvents = allEvents.concat(platformEvents);
-                } catch (err) {
-                    console.error("Erreur sur l'URL : " + url, err);
-                    // Si une URL plante, on continue quand même pour charger l'autre
                 }
-            }
-            // On renvoie ce qu'on a réussi à charger
-            successCallback(allEvents);
+            });
+
+        } catch (err) {
+            console.error("Erreur sur l'URL : " + url, err);
         }
-    });
-    calendar.render();
-});
+    }
+    successCallback(allEvents);
+}
 
     const galleryContainer = document.getElementById('gallery-container');
     const prevBtn = document.getElementById('prevBtn');
