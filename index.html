@@ -312,51 +312,48 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         events: async function(info, successCallback, failureCallback) {
-            try {
-                const icalUrls = [
-                    'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
-                    'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186'
-                ];
+            const icalUrls = [
+                'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
+                'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186'
+            ];
 
-                let allEvents = [];
+            let allEvents = [];
 
-                for (const url of icalUrls) {
-                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(url);
+            for (const url of icalUrls) {
+                try {
+                    // Utilisation d'un proxy alternatif (AllOrigins) si le premier pose souci
+                    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
                     const response = await fetch(proxyUrl);
                     
                     if (!response.ok) continue;
 
-                    const data = await response.text();
+                    const json = await response.json();
+                    let data = json.contents;
+
+                    // Nettoyage crucial pour Booking : supprime les espaces/caractères avant "BEGIN:VCALENDAR"
+                    data = data.substring(data.indexOf("BEGIN:VCALENDAR"));
+
                     const jcalData = ICAL.parse(data);
                     const comp = new ICAL.Component(jcalData);
                     const vevents = comp.getAllSubcomponents('vevent');
 
                     const platformEvents = vevents.map(vevent => {
                         const event = new ICAL.Event(vevent);
-                        
-                        // Utilisation de toJSDate() pour une meilleure compatibilité
-                        const startDate = event.startDate.toJSDate();
-                        const endDate = event.endDate.toJSDate();
-
                         return {
                             title: 'OCCUPÉ',
-                            start: startDate,
-                            end: endDate,
+                            start: event.startDate.toJSDate(),
+                            end: event.endDate.toJSDate(),
                             allDay: true,
                             className: 'booked-event'
                         };
                     });
 
                     allEvents = allEvents.concat(platformEvents);
+                } catch (err) {
+                    console.error("Erreur sur l'URL : " + url, err);
                 }
-
-                console.log("Total des événements chargés :", allEvents.length);
-                successCallback(allEvents);
-
-            } catch (error) {
-                console.error('Erreur calendrier:', error);
-                failureCallback(error);
             }
+            successCallback(allEvents);
         }
     });
     calendar.render();
