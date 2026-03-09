@@ -308,61 +308,72 @@ document.addEventListener('DOMContentLoaded', function() {
         },
 
         events: async function(info, successCallback, failureCallback) {
-            // Configuration spécifique pour chaque source
-            const sources = [
-                { 
-                    name: 'Airbnb', 
-                    url: 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda',
-                    proxy: (u) => 'https://corsproxy.io/?' + encodeURIComponent(u)
-                },
-                { 
-                    name: 'Booking', 
-                    url: 'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186',
-                    // On utilise le proxy de Cloudflare (plus robuste contre les 403)
-                    proxy: (u) => 'https://cors-anywhere.azm.workers.dev/' + u 
-                }
-            ];
+    const allEvents = [];
 
-            let allEvents = [];
-
-            for (const item of sources) {
-                try {
-                    const response = await fetch(item.proxy(item.url));
-                    if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
-                    
-                    const text = await response.text();
-                    const lines = text.split(/\r?\n/);
-                    let currentEvent = null;
-
-                    lines.forEach(line => {
-                        if (line.includes('BEGIN:VEVENT')) {
-                            currentEvent = {};
-                        } else if (line.includes('DTSTART')) {
-                            const m = line.match(/:(\d{8})/);
-                            if (m) currentEvent.start = m[1];
-                        } else if (line.includes('DTEND')) {
-                            const m = line.match(/:(\d{8})/);
-                            if (m) currentEvent.end = m[1];
-                        } else if (line.includes('END:VEVENT')) {
-                            if (currentEvent && currentEvent.start && currentEvent.end) {
-                                allEvents.push({
-                                    title: 'OCCUPÉ',
-                                    start: `${currentEvent.start.substring(0,4)}-${currentEvent.start.substring(4,6)}-${currentEvent.start.substring(6,8)}`,
-                                    end: `${currentEvent.end.substring(0,4)}-${currentEvent.end.substring(4,6)}-${currentEvent.end.substring(6,8)}`,
-                                    allDay: true,
-                                    className: 'booked-event'
-                                });
-                            }
-                            currentEvent = null;
-                        }
-                    });
-                    console.log(`${item.name} synchronisé.`);
-                } catch (err) {
-                    console.error(`Échec pour ${item.name}:`, err);
-                }
-            }
-            successCallback(allEvents);
+    // --- 1. RÉCUPÉRATION AIRBNB (FONCTIONNE DÉJÀ) ---
+    try {
+        const airbnbUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
+        const response = await fetch('https://corsproxy.io/?' + encodeURIComponent(airbnbUrl));
+        if (response.ok) {
+            const text = await response.text();
+            parseIcal(text, allEvents);
+            console.log("Airbnb synchronisé.");
         }
+    } catch (e) { console.error("Erreur Airbnb", e); }
+
+    // --- 2. RÉCUPÉRATION BOOKING (NOUVELLE MÉTHODE ROBUSTE) ---
+    try {
+        const bookingUrl = 'https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186';
+        // Utilisation de AllOrigins avec le paramètre 'raw' pour éviter le blocage CORS
+        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(bookingUrl)}`);
+        
+        if (response.ok) {
+            const text = await response.text();
+            parseIcal(text, allEvents);
+            console.log("Booking synchronisé.");
+        } else {
+            throw new Error("Réponse proxy non OK");
+        }
+    } catch (e) { 
+        console.error("Échec Booking avec Proxy 1, tentative Proxy 2...", e);
+        // Tentative de secours avec un autre service si le premier échoue
+        try {
+            const response = await fetch(`https://whatever-origin.herokuapp.com/${bookingUrl}`);
+            const text = await response.text();
+            parseIcal(text, allEvents);
+        } catch (e2) { console.error("Échec final Booking", e2); }
+    }
+
+    // Fonction interne pour transformer le texte ICAL en événements
+    function parseIcal(text, eventsList) {
+        const lines = text.split(/\r?\n/);
+        let currentEvent = null;
+        lines.forEach(line => {
+            if (line.includes('BEGIN:VEVENT')) {
+                currentEvent = {};
+            } else if (line.includes('DTSTART')) {
+                const m = line.match(/:(\d{8})/);
+                if (m) currentEvent.start = m[1];
+            } else if (line.includes('DTEND')) {
+                const m = line.match(/:(\d{8})/);
+                if (m) currentEvent.end = m[1];
+            } else if (line.includes('END:VEVENT')) {
+                if (currentEvent && currentEvent.start && currentEvent.end) {
+                    eventsList.push({
+                        title: 'OCCUPÉ',
+                        start: `${currentEvent.start.substring(0,4)}-${currentEvent.start.substring(4,6)}-${currentEvent.start.substring(6,8)}`,
+                        end: `${currentEvent.end.substring(0,4)}-${currentEvent.end.substring(4,6)}-${currentEvent.end.substring(6,8)}`,
+                        allDay: true,
+                        className: 'booked-event'
+                    });
+                }
+                currentEvent = null;
+            }
+        });
+    }
+
+    successCallback(allEvents);
+}
     });
     calendar.render();
 });
