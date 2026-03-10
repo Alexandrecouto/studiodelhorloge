@@ -310,41 +310,67 @@
             },
 events: async function(info, successCallback, failureCallback) {
     try {
-        // Ajout du paramètre pour éviter le cache
-        const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
-        const icalUrl = baseUrl + '&nocache=' + new Date().getTime();
-        
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
-        const response = await fetch(proxyUrl);
-        
-        if (!response.ok) throw new Error('Erreur réseau');
-        
-        const data = await response.text();
-        const jcalData = ICAL.parse(data);
-        const comp = new ICAL.Component(jcalData);
-        const vevents = comp.getAllSubcomponents('vevent');
-        
-        const events = vevents.map(vevent => {
-            const event = new ICAL.Event(vevent);
-            
-            return {
-                title: 'RÉSERVÉ', // On force le titre pour TOUS les événements trouvés
-                start: event.startDate.toString(),
-                end: event.endDate.toString(),
-                allDay: true,
-                className: 'booked-event'
-            };
-        });
-        
+
+        // URLs iCal
+        const airbnbUrl = "https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda";
+        const bookingUrl = "https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186";
+
+        // anti-cache
+        const airbnbProxy = "https://corsproxy.io/?"+encodeURIComponent(airbnbUrl + "&nocache=" + new Date().getTime());
+        const bookingProxy = "https://corsproxy.io/?"+encodeURIComponent(bookingUrl + "&nocache=" + new Date().getTime());
+
+        // récupération des deux calendriers
+        const [airbnbRes, bookingRes] = await Promise.all([
+            fetch(airbnbProxy),
+            fetch(bookingProxy)
+        ]);
+
+        if (!airbnbRes.ok || !bookingRes.ok) {
+            throw new Error("Erreur récupération calendrier");
+        }
+
+        const airbnbData = await airbnbRes.text();
+        const bookingData = await bookingRes.text();
+
+        function parseICS(data) {
+
+            const jcalData = ICAL.parse(data);
+            const comp = new ICAL.Component(jcalData);
+            const vevents = comp.getAllSubcomponents("vevent");
+
+            return vevents.map(vevent => {
+
+                const event = new ICAL.Event(vevent);
+
+                return {
+                    title: "RÉSERVÉ",
+                    start: event.startDate.toString(),
+                    end: event.endDate.toString(),
+                    allDay: true,
+                    className: "booked-event"
+                };
+
+            });
+
+        }
+
+        const airbnbEvents = parseICS(airbnbData);
+        const bookingEvents = parseICS(bookingData);
+
+        const events = [...airbnbEvents, ...bookingEvents];
+
         successCallback(events);
+
     } catch (error) {
-        console.error('Erreur calendrier:', error);
+
+        console.error("Erreur calendrier:", error);
         failureCallback(error);
+
     }
 }
-        }); // Fermeture du constructeur FullCalendar
+        }); 
         calendar.render();
-    }); // Fermeture du DOMContentLoaded
+    }); 
 
     const galleryContainer = document.getElementById('gallery-container');
     const prevBtn = document.getElementById('prevBtn');
