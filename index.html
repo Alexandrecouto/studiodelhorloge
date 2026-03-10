@@ -310,36 +310,21 @@
             },
 events: async function(info, successCallback, failureCallback) {
     try {
-
-        // URLs iCal
         const airbnbUrl = "https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda";
-        const bookingUrl = "https://ical.booking.com/v1/export?t=a6467e4a-6f9b-4d86-a0c1-9fe7f1a20186";
+        const bookingProxyUrl = "https://ton-worker.toncompte.workers.dev";
 
-        // anti-cache
-        const airbnbProxy = "https://corsproxy.io/?"+encodeURIComponent(airbnbUrl + "&nocache=" + new Date().getTime());
-        const bookingProxy = "https://corsproxy.io/?"+encodeURIComponent(bookingUrl + "&nocache=" + new Date().getTime());
+        const airbnbProxy = "https://corsproxy.io/?" + encodeURIComponent(
+            airbnbUrl + "&nocache=" + Date.now()
+        );
 
-        // récupération des deux calendriers
-        const [airbnbRes, bookingRes] = await Promise.all([
-            fetch(airbnbProxy),
-            fetch(bookingProxy)
-        ]);
+        let events = [];
 
-        if (!airbnbRes.ok || !bookingRes.ok) {
-            throw new Error("Erreur récupération calendrier");
-        }
-
-        const airbnbData = await airbnbRes.text();
-        const bookingData = await bookingRes.text();
-
-        function parseICS(data) {
-
+        function parseICS(data, source) {
             const jcalData = ICAL.parse(data);
             const comp = new ICAL.Component(jcalData);
             const vevents = comp.getAllSubcomponents("vevent");
 
             return vevents.map(vevent => {
-
                 const event = new ICAL.Event(vevent);
 
                 return {
@@ -347,25 +332,40 @@ events: async function(info, successCallback, failureCallback) {
                     start: event.startDate.toString(),
                     end: event.endDate.toString(),
                     allDay: true,
-                    className: "booked-event"
+                    className: source === "booking" ? "booking-event" : "airbnb-event"
                 };
-
             });
-
         }
 
-        const airbnbEvents = parseICS(airbnbData);
-        const bookingEvents = parseICS(bookingData);
+        try {
+            const airbnbRes = await fetch(airbnbProxy);
+            if (airbnbRes.ok) {
+                const airbnbData = await airbnbRes.text();
+                events = events.concat(parseICS(airbnbData, "airbnb"));
+            } else {
+                console.warn("Airbnb HTTP:", airbnbRes.status);
+            }
+        } catch (e) {
+            console.warn("Erreur Airbnb :", e);
+        }
 
-        const events = [...airbnbEvents, ...bookingEvents];
+        try {
+            const bookingRes = await fetch(bookingProxyUrl + "?nocache=" + Date.now());
+            if (bookingRes.ok) {
+                const bookingData = await bookingRes.text();
+                events = events.concat(parseICS(bookingData, "booking"));
+            } else {
+                console.warn("Booking HTTP:", bookingRes.status);
+            }
+        } catch (e) {
+            console.warn("Erreur Booking :", e);
+        }
 
         successCallback(events);
 
     } catch (error) {
-
         console.error("Erreur calendrier:", error);
         failureCallback(error);
-
     }
 }
         }); 
