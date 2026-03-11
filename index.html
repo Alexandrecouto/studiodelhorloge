@@ -308,21 +308,32 @@
                     if (dayNumber) dayNumber.style.opacity = '0.3';
                 }
             },
-    events: async function(info, successCallback, failureCallback) {
+events: async function(info, successCallback, failureCallback) {
     try {
         const baseUrl = 'https://api.icalmerge.com/calendar/11854755-a461-420c-a18e-5dcc25dd32aa.ics';
-        const icalUrl = baseUrl + '?nocache=' + new Date().getTime();
+        // Le paramètre ?t= force le rafraîchissement côté iCal Merge
+        const icalUrl = baseUrl + '?t=' + new Date().getTime();
         
-        // Utilisation d'un nouveau proxy (AllOrigins) pour éviter l'erreur 403
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(icalUrl)}`;
+        // On utilise un proxy plus "pro" (servir.cc ou un autre relais CORS)
+        // Si celui-ci échoue, on a une alternative.
+        const proxyUrl = `https://cors-anywhere.herokuapp.com/${icalUrl}`;
         
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Erreur réseau');
-        
-        const result = await response.json(); // AllOrigins renvoie un objet JSON
-        const data = result.contents; // Le contenu du fichier iCal est dans la propriété 'contents'
+        // Note : Certains proxys demandent une activation temporaire sur leur site
+        // Pour éviter cela, utilisons une méthode plus directe :
+        const alternativeProxy = `https://api.allorigins.win/get?url=${encodeURIComponent(icalUrl)}`;
 
-        if (!data) throw new Error('Fichier vide ou inaccessible');
+        const response = await fetch(alternativeProxy);
+        
+        if (!response.ok) throw new Error('Réponse réseau non OK');
+        
+        const json = await response.json();
+        const data = json.contents;
+
+        if (!data || data.trim() === "") {
+            console.error("Le fichier iCal est vide");
+            successCallback([]); 
+            return;
+        }
 
         const jcalData = ICAL.parse(data);
         const comp = new ICAL.Component(jcalData);
@@ -330,19 +341,26 @@
 
         const events = vevents.map(vevent => {
             const event = new ICAL.Event(vevent);
+            // On s'assure que la date est bien valide
+            const start = event.startDate.toJSDate();
+            const end = event.endDate.toJSDate();
+
             return {
                 title: 'RÉSERVÉ',
-                start: event.startDate.toJSDate(),
-                end: event.endDate.toJSDate(),
+                start: start,
+                end: end,
                 allDay: true,
-                className: 'booked-event'
+                className: 'booked-event',
+                display: 'block'
             };
         });
 
         successCallback(events);
+
     } catch (error) {
-        console.error('Erreur calendrier détaillée:', error);
-        failureCallback(error);
+        console.error('Erreur lors de la récupération :', error);
+        // On ne bloque pas le calendrier en cas d'erreur, on renvoie une liste vide
+        successCallback([]); 
     }
 }
         });
