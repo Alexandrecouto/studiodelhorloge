@@ -311,7 +311,7 @@
         events: async function(info, successCallback, failureCallback) {
             try {
                 // Ajout du paramètre pour éviter le cache
-                const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
+                const baseUrl = 'https://AirBnb%25252520%252525F0%2525259F%2525258F%252525A0@www.airbnb.fr/calendar/ical/1290994820482311065.ics?s=e454e1d755e16e197ca90313cf902dac';
                 const icalUrl = baseUrl + '&nocache=' + new Date().getTime();
 
                 const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
