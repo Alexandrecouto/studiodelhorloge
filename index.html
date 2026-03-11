@@ -310,29 +310,25 @@
             },
 events: async function(info, successCallback, failureCallback) {
     try {
-        // 1. On simplifie l'URL pour éviter les erreurs de paramètres multiples
         const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics';
         const token = 'cb4f1c18c9064806bac8afef013bcbda';
-        // On génère un chiffre aléatoire pour forcer la mise à jour sans casser l'URL
         const freshUrl = `${baseUrl}?t=${token}&v=${Math.floor(Math.random() * 1000)}`;
 
-        // 2. On utilise le proxy
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(freshUrl);
+        // Changement de proxy ici : AllOrigins
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(freshUrl)}`;
         
         const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Erreur réseau ou proxy');
+        if (!response.ok) throw new Error('Erreur réseau');
 
-        const data = await response.text();
-        
-        // 3. Analyse du fichier iCal
+        const result = await response.json();
+        const data = result.contents; // AllOrigins met le texte dans .contents
+
         const jcalData = ICAL.parse(data);
         const comp = new ICAL.Component(jcalData);
         const vevents = comp.getAllSubcomponents('vevent');
 
         const events = vevents.map(vevent => {
             const event = new ICAL.Event(vevent);
-            
-            // Utiliser toJSDate() est beaucoup plus fiable que toString()
             const startDate = event.startDate.toJSDate();
             const endDate = event.endDate.toJSDate();
 
