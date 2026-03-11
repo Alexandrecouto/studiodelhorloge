@@ -308,50 +308,44 @@
                     if (dayNumber) dayNumber.style.opacity = '0.3';
                 }
             },
-events: async function(info, successCallback, failureCallback) {
-    try {
-        const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics';
-        const token = 'cb4f1c18c9064806bac8afef013bcbda';
-        const freshUrl = `${baseUrl}?t=${token}&v=${Math.floor(Math.random() * 1000)}`;
+  events: async function(info, successCallback, failureCallback) {
+            try {
+                // Ajout du paramètre pour éviter le cache
+                const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda'; 
+                const icalUrl = baseUrl + '&nocache=' + new Date().getTime();
 
-        // Changement de proxy ici : AllOrigins
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(freshUrl)}`;
-        
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Erreur réseau');
+                const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
+                const response = await fetch(proxyUrl);
 
-        const result = await response.json();
-        const data = result.contents; // AllOrigins met le texte dans .contents
+                if (!response.ok) throw new Error('Erreur réseau');
 
-        const jcalData = ICAL.parse(data);
-        const comp = new ICAL.Component(jcalData);
-        const vevents = comp.getAllSubcomponents('vevent');
+                const data = await response.text();
+                const jcalData = ICAL.parse(data);
+                const comp = new ICAL.Component(jcalData);
+                const vevents = comp.getAllSubcomponents('vevent');
 
-        const events = vevents.map(vevent => {
-            const event = new ICAL.Event(vevent);
-            const startDate = event.startDate.toJSDate();
-            const endDate = event.endDate.toJSDate();
+                const events = vevents.map(vevent => {
+                    const event = new ICAL.Event(vevent);
 
-            return {
-                title: 'RÉSERVÉ',
-                start: startDate,
-                end: endDate,
-                allDay: true,
-                className: 'booked-event'
+                    return {
+                        title: 'RÉSERVÉ', // On force le titre pour TOUS les événements trouvés
+                        start: event.startDate.toString(),
+                        end: event.endDate.toString(),
+                        allDay: true,
+                        className: 'booked-event'
             };
         });
-
-        console.log(`${events.length} réservations trouvées.`);
-        successCallback(events);
-
-    } catch (error) {
-        console.error('Erreur technique :', error);
-        failureCallback(error);
-    }
-}
+        
+            successCallback(events);
+        } catch (error) {
+            console.error('Erreur calendrier:', error);
+            failureCallback(error);
+        }
+            }
         });
         calendar.render();
-    }); 
+    });
+
 
     const galleryContainer = document.getElementById('gallery-container');
     const prevBtn = document.getElementById('prevBtn');
