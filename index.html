@@ -310,28 +310,30 @@
             },
     events: async function(info, successCallback, failureCallback) {
     try {
-        // Correction de l'URL : on utilise '?' au lieu de '&' pour le premier paramètre
-        const baseUrl = 'https://api.icalmerge.com/calendar/11854755-a461-420c-a18e-5dcc25dd32aa.ics'; 
+        const baseUrl = 'https://api.icalmerge.com/calendar/11854755-a461-420c-a18e-5dcc25dd32aa.ics';
         const icalUrl = baseUrl + '?nocache=' + new Date().getTime();
-
-        // On passe par le proxy pour éviter les erreurs de sécurité (CORS)
-        const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
+        
+        // Utilisation d'un nouveau proxy (AllOrigins) pour éviter l'erreur 403
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(icalUrl)}`;
         
         const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error('Erreur lors de la récupération du fichier iCal');
+        if (!response.ok) throw new Error('Erreur réseau');
+        
+        const result = await response.json(); // AllOrigins renvoie un objet JSON
+        const data = result.contents; // Le contenu du fichier iCal est dans la propriété 'contents'
 
-        const data = await response.text();
+        if (!data) throw new Error('Fichier vide ou inaccessible');
+
         const jcalData = ICAL.parse(data);
         const comp = new ICAL.Component(jcalData);
         const vevents = comp.getAllSubcomponents('vevent');
 
         const events = vevents.map(vevent => {
             const event = new ICAL.Event(vevent);
-
             return {
-                title: 'RÉSERVÉ', // Uniformise tous les flux (Airbnb, Booking via iCal Merge)
-                start: event.startDate.toString(),
-                end: event.endDate.toString(),
+                title: 'RÉSERVÉ',
+                start: event.startDate.toJSDate(),
+                end: event.endDate.toJSDate(),
                 allDay: true,
                 className: 'booked-event'
             };
@@ -339,7 +341,7 @@
 
         successCallback(events);
     } catch (error) {
-        console.error('Erreur calendrier:', error);
+        console.error('Erreur calendrier détaillée:', error);
         failureCallback(error);
     }
 }
