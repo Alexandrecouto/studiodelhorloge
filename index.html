@@ -308,43 +308,43 @@
                     if (dayNumber) dayNumber.style.opacity = '0.3';
                 }
             },
-        events: async function(info, successCallback, failureCallback) {
-            try {
-                // Ajout du paramètre pour éviter le cache
-                const baseUrl = 'https://AirBnb%25252520%252525F0%2525259F%2525258F%252525A0@www.airbnb.fr/calendar/ical/1290994820482311065.ics?s=e454e1d755e16e197ca90313cf902dac';
-                const icalUrl = baseUrl + '&nocache=' + new Date().getTime();
-
-                const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
-                const response = await fetch(proxyUrl);
-
-                if (!response.ok) throw new Error('Erreur réseau');
-
-                const data = await response.text();
-                const jcalData = ICAL.parse(data);
-                const comp = new ICAL.Component(jcalData);
-                const vevents = comp.getAllSubcomponents('vevent');
-
-                const events = vevents.map(vevent => {
-                    const event = new ICAL.Event(vevent);
-
-                    return {
-                        title: 'RÉSERVÉ', // On force le titre pour TOUS les événements trouvés
-                        start: event.startDate.toString(),
-                        end: event.endDate.toString(),
-                        allDay: true,
-                        className: 'booked-event'
-            };
-        });
-        
-            successCallback(events);
-        } catch (error) {
-            console.error('Erreur calendrier:', error);
-            failureCallback(error);
-        }
+events: async function(info, successCallback, failureCallback) {
+                try {
+                    // Utilisation du paramètre nocache pour forcer la mise à jour des dates externes
+                    const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
+                    const icalUrl = baseUrl + '&nocache=' + new Date().getTime();
+                    
+                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
+                    const response = await fetch(proxyUrl);
+                    
+                    if (!response.ok) throw new Error('Erreur réseau');
+                    
+                    const data = await response.text();
+                    const jcalData = ICAL.parse(data);
+                    const comp = new ICAL.Component(jcalData);
+                    const vevents = comp.getAllSubcomponents('vevent');
+                    
+                    const events = vevents.map(vevent => {
+                        const event = new ICAL.Event(vevent);
+                        
+                        return {
+                            title: 'RÉSERVÉ', 
+                            start: event.startDate.toString(),
+                            end: event.endDate.toString(),
+                            allDay: true,
+                            className: 'booked-event' // Classe pour le style CSS
+                        };
+                    });
+                    
+                    successCallback(events);
+                } catch (error) {
+                    console.error('Erreur calendrier:', error);
+                    failureCallback(error);
+                }
             }
-        });
+        }); // Fermeture du constructeur FullCalendar
         calendar.render();
-    });
+    }); // Fermeture du DOMContentLoaded
 
     const galleryContainer = document.getElementById('gallery-container');
     const prevBtn = document.getElementById('prevBtn');
