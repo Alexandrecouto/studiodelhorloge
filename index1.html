@@ -311,7 +311,7 @@
         events: async function(info, successCallback, failureCallback) {
             try {
                 // Ajout du paramètre pour éviter le cache
-                const baseUrl = 'https://api.icalmerge.com/calendar/11854755-a461-420c-a18e-5dcc25dd32aa.ics'; //https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda
+                const baseUrl = 'https://www.airbnb.fr/calendar/ical/1290994820482311065.ics?t=cb4f1c18c9064806bac8afef013bcbda';
                 const icalUrl = baseUrl + '&nocache=' + new Date().getTime();
 
                 const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(icalUrl);
