@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fa">
+  <meta name="description" content="Retrouvez tous les tutoriels pour profiter facilement des équipements de votre logement.">
+  <title>Guide du logement · Tutoriels</title>
+  <link rel="icon" href="./image/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#1d2b35;--muted:#697781;--accent:#1c756c;--accent-dark:#105b54;--line:#e4e9e9;--surface:#fff;--bg:#f6f8f7;--soft:#e9f3f0;--shadow:0 12px 35px rgba(26,51,48,.055); }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}button,input,a{font:inherit}a{color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #83c3b6;outline-offset:3px}.wrap{width:min(1160px,calc(100% - 44px));margin:auto}
+    .topbar{background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:84px}.brand{display:flex;align-items:center;gap:13px;text-decoration:none}.brand-logo{height:46px;width:46px;object-fit:contain;background:#f8faf9;border:1px solid var(--line);border-radius:13px;padding:5px}.brand-copy{display:flex;flex-direction:column;gap:2px}.brand-copy strong{font-family:Manrope,sans-serif;font-size:16px;letter-spacing:-.5px}.brand-copy span{font-size:12px;color:var(--muted)}.top-help{font-size:13px;text-decoration:none;color:var(--accent-dark);font-weight:700;border:1px solid #d4e8e3;border-radius:999px;padding:11px 16px;white-space:nowrap}.top-help:hover{background:var(--soft)}
+    .hero{margin-top:36px;background:#e8f1ee;border-radius:25px;padding:48px clamp(24px,5vw,64px);position:relative;overflow:hidden;min-height:300px;display:flex;align-items:center}.hero:after{content:"";position:absolute;right:-110px;top:-160px;height:450px;width:450px;border:70px solid rgba(28,117,108,.055);border-radius:50%;pointer-events:none}.hero-inner{max-width:700px;position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:2px;font-size:11px;color:var(--accent-dark);font-weight:800}.eyebrow .dot{height:7px;width:7px;border-radius:50%;background:#1c756c}.hero h1{font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-1.8px;font-size:clamp(32px,4.5vw,52px);line-height:1.16;margin:15px 0}.hero p{color:#536960;font-size:16px;line-height:1.7;margin:0;max-width:530px}
+    .main{padding-top:36px;padding-bottom:64px}.section-top{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:21px}.section-top h2{font-family:Manrope,sans-serif;font-size:23px;letter-spacing:-.7px;margin:0 0 6px}.section-top p{font-size:14px;color:var(--muted);margin:0}.result-counter{color:var(--muted);font-size:13px;white-space:nowrap}
+    .tools{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:25px;flex-wrap:wrap}.filters{display:flex;flex-wrap:wrap;gap:8px}.filter{border:1px solid var(--line);background:#fff;color:#56666c;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700;transition:.2s}.filter:hover{border-color:#92bdb3;color:var(--accent-dark)}.filter[aria-pressed="true"]{color:#fff;background:var(--accent);border-color:var(--accent)}.search{position:relative;display:flex;align-items:center;width:min(310px,100%);min-width:220px}.search svg{position:absolute;left:16px;color:#8a9796;pointer-events:none}.search input{width:100%;border:1px solid var(--line);background:#fff;border-radius:13px;height:45px;padding:0 39px 0 45px;font-size:13px;color:var(--ink);outline:none}.search input:focus{border-color:#7eb6a9;box-shadow:0 0 0 3px #dcf0e9}.clear{display:none;position:absolute;right:10px;border:none;background:#edf3f0;border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;color:#586f67}.clear.visible{display:flex}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.card{min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s,border-color .22s}.card:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(26,51,48,.11);border-color:#cadeda}.card-image{display:flex;align-items:center;justify-content:center;position:relative;height:188px;background:#f4f7f6;border-bottom:1px solid #edf0ef;padding:17px}.card-image img{width:100%;height:100%;object-fit:contain;transition:transform .3s}.card:hover .card-image img{transform:scale(1.035)}.card-image .fallback{display:none;font-size:42px}.card-image.error img{display:none}.card-image.error .fallback{display:block}.card-image-link{display:block;text-decoration:none}.card-title-link{display:block;flex:1;text-decoration:none;color:inherit}.card-title-link:hover h3{color:var(--accent-dark)}.card-content{padding:22px;display:flex;flex:1;flex-direction:column;align-items:start}.category{font-size:11px;letter-spacing:.7px;color:var(--accent-dark);font-weight:800;text-transform:uppercase;margin-bottom:10px}.card h3{font-family:Manrope,sans-serif;font-size:17px;line-height:1.45;letter-spacing:-.4px;margin:0 0 20px;flex:1}.visit{display:inline-flex;align-items:center;gap:10px;background:var(--soft);color:var(--accent-dark);padding:11px 15px;border-radius:10px;text-decoration:none;font-weight:800;font-size:12px;transition:background .2s}.visit:hover{background:#d6eae3}.visit svg{width:15px;height:15px}.empty{grid-column:1/-1;text-align:center;border:1px dashed #c8d7d2;border-radius:18px;background:white;padding:54px 18px}.empty-icon{font-size:35px}.empty h3{margin:15px 0 8px;font-family:Manrope}.empty p{color:var(--muted);margin:0 0 18px}.reset{background:var(--accent);border:0;color:#fff;padding:10px 16px;border-radius:9px;font-weight:700}
+    .help{margin-top:42px;padding:27px 31px;display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff;border:1px solid var(--line);border-radius:17px}.help h2{font-family:Manrope,sans-serif;font-size:18px;margin:0 0 7px}.help p{color:var(--muted);font-size:13px;line-height:1.6;margin:0}.call{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#fff;background:var(--accent);padding:14px 20px;border-radius:10px;font-size:13px;font-weight:700;white-space:nowrap}.call:hover{background:var(--accent-dark)}footer{text-align:center;color:#8c9997;font-size:12px;padding:0 0 30px}
+    @media(max-width:960px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tools{align-items:stretch}.search{width:100%}.hero{min-height:260px}}
+    @media(max-width:600px){.wrap{width:min(100% - 30px,1160px)}.topbar-inner{min-height:74px}.brand-logo{height:40px;width:40px}.brand-copy strong{font-size:14px}.top-help{font-size:12px;padding:9px 11px}.hero{margin-top:17px;padding:30px 24px;min-height:230px;border-radius:18px}.hero h1{font-size:32px;letter-spacing:-1px}.hero p{font-size:14px}.main{padding-top:29px}.section-top{align-items:start}.section-top h2{font-size:21px}.result-counter{padding-top:7px}.tools{gap:16px}.filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;margin-right:-15px;scrollbar-width:thin}.filter{flex-shrink:0}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{border-radius:13px}.card-image{height:130px;padding:12px}.card-content{padding:14px}.card h3{font-size:13px;margin-bottom:16px}.category{font-size:9px}.visit{font-size:11px;padding:9px 10px}.help{flex-direction:column;align-items:stretch;padding:23px;margin-top:30px}.call{justify-content:center}}
+    @media(max-width:370px){.grid{grid-template-columns:1fr}.card-image{height:190px}.top-help{font-size:0}.top-help:after{content:'Aide';font-size:12px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="wrap topbar-inner">
+    <a class="brand" href="#accueil" aria-label="Revenir à l'accueil"><img class="brand-logo" src="./image/logo.png" alt="Logo du logement"><span class="brand-copy"><strong>Guide du logement</strong><span>Votre espace tutoriels</span></span></a>
+    <a class="top-help" href="tel:+33652866926">Besoin d'aide ? ↗</a>
+  </div></header>
+  <div class="wrap" id="accueil">
+    <section class="hero" aria-labelledby="hero-title"><div class="hero-inner"><span class="eyebrow"><span class="dot"></span> Bienvenue chez vous</span><h1>Tout pour vous sentir<br>comme à la maison.</h1><p>Découvrez comment utiliser les équipements de votre logement grâce à nos tutoriels simples et pratiques.</p></div></section>
+    <main class="main">
+      <div class="section-top"><div><h2>Explorez les tutoriels</h2><p>Choisissez une pièce ou recherchez un équipement.</p></div><span class="result-counter" id="counter" role="status" aria-live="polite"></span></div>
+      <div class="tools"><nav class="filters" id="filters" aria-label="Filtrer par pièce"></nav><div class="search"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input type="search" id="search" placeholder="Rechercher un tutoriel..." aria-label="Rechercher un tutoriel" autocomplete="off"><button type="button" class="clear" id="clearSearch" aria-label="Effacer la recherche">×</button></div></div>
+      <section class="grid" id="tutorialList" aria-label="Liste des tutoriels"></section>
+      <section class="help"><div><h2>Une question ou un problème ?</h2><p>Vous ne trouvez pas la réponse ? Contactez-nous, nous sommes là pour vous aider.</p></div><a href="tel:+33652866926" class="call">☎ &nbsp;06 52 86 69 26</a></section>
+    </main>
+  </div>
+  <footer>Guide du logement · Conçu pour faciliter votre séjour</footer>
+<script>
+  // Vos liens et noms de fichiers d'origine sont conservés.
+  const tutorials = [
+    { id: 1, title: "Utilisation du four / Micro-onde", category: "Cuisine", video: "./tuto/four.html", image: "./image/microonde.jpeg" },
+    { id: 3, title: "Machine à café", category: "Cuisine", video: "./tuto/machinecafe.html", image: "./image/machinecafe.jpeg" },
+    { id: 4, title: "Grille-pain", category: "Cuisine", video: "./tuto/grillepain.html", image: "./image/grillepain.webp" },
+    { id: 5, title: "Bouilloire", category: "Cuisine", video: "./tuto/bouilloire.html", image: "./image/bouilloire.webp" },
+    { id: 7, title: "Plaque de cuisson", category: "Cuisine", video: "./tuto/plaquedecuisson.html", image: "./image/plaquedecuisson.jpg" },
+    { id: 8, title: "Télévision", category: "Salon", video: "./tuto/tv.html", image: "./image/tv.png" },
+    { id: 9, title: "Sèche-cheveux", category: "Salle de bain", video: "./tuto/sechecheveux.html", image: "./image/sechecheveux.jpg" },
+    { id: 10, title: "Boîte à clés", category: "Salon", video: "./tuto/boiteacle.html", image: "./image/boiteacle.png" },
+    { id: 11, title: "Poêles et casseroles", category: "Cuisine", video: "./tuto/tefal.html", image: "./image/tefal.jpg" }
+  ];
+  const categories = ["Toutes les pièces", ...new Set(tutorials.map(item => item.category))];
+  const grid = document.getElementById('tutorialList');
+  const filters = document.getElementById('filters');
+  const search = document.getElementById('search');
+  const counter = document.getElementById('counter');
+  const clearSearch = document.getElementById('clearSearch');
+  let activeCategory = 'Toutes les pièces';
+  const normalize = value => value.toLocaleLowerCase('fr').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  function renderFilters(){
+    filters.replaceChildren();
+    categories.forEach(category => {
+      const button = document.createElement('button');
+      button.type = 'button';button.className = 'filter';button.textContent = category;
+      button.setAttribute('aria-pressed', String(activeCategory === category));
+      button.addEventListener('click', () => {activeCategory = category;renderFilters();renderTutorials();});
+      filters.append(button);
+    });
+  }
+  function renderTutorials(){
+    const term = normalize(search.value.trim());
+    clearSearch.classList.toggle('visible', Boolean(search.value));
+    const matches = tutorials.filter(item => (activeCategory === 'Toutes les pièces' || item.category === activeCategory) && normalize(item.title+' '+item.category).includes(term));
+    counter.textContent = `${matches.length} tutoriel${matches.length > 1 ? 's' : ''}`;
+    grid.replaceChildren();
+    if (!matches.length){
+      const empty = document.createElement('div');empty.className = 'empty';
+      empty.innerHTML = '<div class="empty-icon">⌕</div><h3>Aucun tutoriel trouvé</h3><p>Essayez un autre mot ou une autre catégorie.</p>';
+      const reset = document.createElement('button');reset.className = 'reset';reset.textContent = 'Voir tous les tutoriels';
+      reset.addEventListener('click', () => {activeCategory='Toutes les pièces';search.value='';renderFilters();renderTutorials();});
+      empty.append(reset);grid.append(empty);return;
+    }
+    for (const item of matches){
+      const article = document.createElement('article');article.className='card';
+      const frame = document.createElement('div');frame.className='card-image';
+      const img = document.createElement('img');img.src=item.image;img.alt=item.title;img.loading='lazy';
+      img.addEventListener('error',()=>frame.classList.add('error'));
+      const fallback=document.createElement('span');fallback.className='fallback';fallback.textContent='📖';fallback.setAttribute('aria-hidden','true');
+      frame.append(img,fallback);
+      const imageLink=document.createElement("a");imageLink.className="card-image-link";imageLink.href=item.video;imageLink.setAttribute("aria-label","Ouvrir le tutoriel : "+item.title);imageLink.append(frame);
+      const content=document.createElement('div');content.className='card-content';
+      const category=document.createElement('span');category.className='category';category.textContent=item.category;
+      const title=document.createElement('h3');title.textContent=item.title;
+      const titleLink=document.createElement("a");titleLink.className="card-title-link";titleLink.href=item.video;titleLink.append(title);
+      const link=document.createElement('a');link.className='visit';link.href=item.video;link.textContent='Voir le tutoriel';
+      content.append(category,titleLink,link);article.append(imageLink,content);grid.append(article);
+    }
+  }
+  search.addEventListener('input',renderTutorials);
+  clearSearch.addEventListener('click',()=>{search.value='';search.focus();renderTutorials();});
+  renderFilters();renderTutorials();
+</script>
+</body>
+</html>

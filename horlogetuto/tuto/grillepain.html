@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grille pain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+
+:root{color-scheme:light;--ink:#21302d;--muted:#687872;--accent:#2e7564;--accent-deep:#205747;--line:#e2eae6;--surface:#fff;--back:#f5f8f6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Roboto',system-ui,-apple-system,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 90% 0%,#e8f2ed,transparent 48%),var(--back);margin:0;padding:36px 20px 60px;min-height:100vh;line-height:1.65}
+.container{width:100%;max-width:910px;margin:0 auto;background:var(--surface);padding:clamp(22px,5vw,55px);border:1px solid #e7eeea;border-radius:24px;box-shadow:0 16px 55px rgba(24,65,49,.07)}
+.container::before{content:'';display:block;height:5px;width:78px;background:linear-gradient(90deg,#3b9c80,#b6dfcf);border-radius:99px;margin:0 auto 24px}
+h1{font-size:clamp(1.85rem,4vw,2.55rem);line-height:1.2;letter-spacing:-.035em;text-align:center;margin:0 0 15px;font-weight:700}
+h2{font-size:1rem;font-weight:400;color:var(--muted);text-align:center;margin:0 0 28px}
+h2:empty{display:none}
+.video-container{display:grid;gap:22px;margin-bottom:25px}
+.video-subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);font-weight:700;line-height:1.35;color:var(--ink);text-align:left;margin:4px 0 -12px}
+.video-container iframe{display:block;width:100%!important;height:auto!important;aspect-ratio:16/9;border:0;border-radius:15px!important;margin:0!important;background:#edf2ef;box-shadow:0 7px 22px rgba(28,52,43,.09)}
+.video-container:empty{display:none}
+#steps-container{display:grid;gap:22px;counter-reset:step}
+#steps-container:empty{display:none}
+.step{position:relative;background:#f9fbfa;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:left;margin:0;overflow:hidden}
+.step p{margin:0 0 16px;font-size:1rem;font-weight:500;line-height:1.7;overflow-wrap:anywhere}
+.step img{display:block;max-width:100%;height:auto;object-fit:contain;margin:10px auto 0;border-radius:13px}
+button{display:flex;align-items:center;justify-content:center;gap:8px;margin:34px auto 26px;min-width:170px;padding:13px 25px;background:var(--accent);color:#fff;border:0;border-radius:12px;cursor:pointer;font:700 1rem 'Roboto',sans-serif;box-shadow:0 7px 19px rgba(34,105,83,.15);transition:transform .2s,background .2s,box-shadow .2s}
+button:hover{background:var(--accent-deep);transform:translateY(-2px);box-shadow:0 9px 21px rgba(34,105,83,.23)}
+button:focus-visible,a:focus-visible{outline:3px solid #63b99d;outline-offset:3px}
+hr{height:1px;border:0;background:var(--line);margin:28px 0}
+.contact-info{margin:24px auto 0;text-align:center;color:var(--muted);font-size:.98rem}
+.contact-info p{margin:0}
+.contact-info strong{white-space:nowrap;color:var(--accent-deep)}
+@media(max-width:600px){body{padding:14px 10px 35px}.container{border-radius:18px;padding:26px 18px}.step{padding:17px}.video-container{gap:18px}.video-subtitle{margin-bottom:-10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button{transition:none}}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="tutorial-title">Grille pain</h1>
+        <h2 id="tutorial-subtitle"></h2>
+
+        <div class="video-container" id="video-container">
+            <!-- Les vidéos seront injectées ici -->
+        </div>
+
+        <div id="steps-container">
+            <!-- Les étapes seront injectées ici -->
+        </div>
+
+        <button onclick="goBack()">Retour</button>
+
+        <hr>
+
+        <div class="contact-info">
+            <p>En cas de problème, n'hésitez pas à me contacter au <strong>06 52 86 69 26</strong>.</p>
+        </div>
+    </div>
+
+    <script>
+        const tutorialData = {
+            title: "Grille pain",
+            text: "",
+            videoList: [
+                { url: "https://www.youtube.com/embed/mBx-wvx-80U", label: "Comment fonctionne le grille pain ?" },
+                
+            ],
+        };
+
+        // Titre et sous-titre
+        document.getElementById("tutorial-title").innerText = tutorialData.title;
+        document.getElementById("tutorial-subtitle").innerText = tutorialData.text;
+
+        // Insertion des vidéos avec sous-titres
+        const videoContainer = document.getElementById("video-container");
+        tutorialData.videoList.forEach(video => {
+            const subtitle = document.createElement("div");
+            subtitle.className = "video-subtitle";
+            subtitle.innerText = video.label;
+
+            const iframe = document.createElement("iframe");
+            iframe.src = video.url;
+            iframe.frameBorder = 0;
+            iframe.allowFullscreen = true;
+            iframe.style.width = "100%";
+            iframe.style.height = "315px";
+            iframe.style.borderRadius = "10px";
+            iframe.style.marginBottom = "20px";
+
+            videoContainer.appendChild(subtitle);
+            videoContainer.appendChild(iframe);
+        });
+
+        // Insertion des étapes
+        const stepsContainer = document.getElementById("steps-container");
+        (tutorialData.steps || []).forEach(step => {
+            const stepDiv = document.createElement("div");
+            stepDiv.className = "step";
+            stepDiv.innerHTML = `<p>${step.text}</p><img src="${step.image}" alt="${step.text}">`;
+            stepsContainer.appendChild(stepDiv);
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
