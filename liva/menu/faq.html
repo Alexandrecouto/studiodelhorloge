@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ</title>
+  <style>
+    :root {
+      --background: #f7f2ed;
+      --text-primary: #1a1a1a;
+      --hover-dark: #555;
+      --font-main: 'Georgia', serif;
+      --font-secondary: 'Arial', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-secondary);
+      background-color: var(--background);
+      color: var(--text-primary);
+    }
+
+    .faq-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem 1.2rem 5rem; /* Padding bottom to avoid overlapping home button */
+    }
+
+    .faq-title {
+      text-align: center;
+      font-family: var(--font-main);
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .faq-title::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 20px;
+      background-color: var(--text-primary);
+      margin: 10px auto 0;
+    }
+
+    .faq-intro {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-question {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-answer {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #444;
+    }
+
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: opacity 250ms ease, color 250ms ease;
+      z-index: 100;
+    }
+
+    .home-button:hover {
+      color: var(--hover-dark);
+      opacity: 0.8;
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .valise-img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+    .faq-separator {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="faq-container">
+    <h1 class="faq-title">FAQ</h1>
+    <p class="faq-intro">
+      Nous avons pris le temps de composer une liste de foire aux questions pour vous offrir un moyen pratique de répondre à vos interrogations courantes. N’hésitez pas à nous contacter aux besoins.
+    </p>
+    
+    <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">COMMENT SE PASSE L’ARRIVÉE ? </div>
+      <div class="faq-answer">
+        Vous recevrez toutes les informations nécessaires (code d’entrée, horaires, etc.) le jour de votre arrivée, à 15h.
+        Si vous effectuez une réservation après 15h, les informations vous seront envoyées immédiatement.
+        L’arrivée est autonome, ce qui vous permet d’accéder au logement à votre rythme et en toute liberté.
+      </div>
+    </div>
+    
+    <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">Y A-T-IL UN PARKING DISPONIBLE SUR PLACE ?</div>
+      <div class="faq-answer">
+        Oui, un parking gratuit est à votre disposition directement sur place. L’emplacement est encadré en bleu sur l’image ci-dessous.
+      </div>
+        <div class="image-container">
+            <img  src="../image/faq/parking.png" alt="Valise" class="valise-img">
+        </div>
+    </div>
+
+    <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">OÙ SE TROUVE L’ENTRÉE ?</div>
+      <div class="faq-answer">
+        L’entrée se situe à l’endroit indiqué sur l’image ci-dessous.
+      </div>
+        <div class="image-container">
+            <img  src="../image/faq/entre.webp" alt="Valise" class="valise-img">
+        </div>
+    </div>
+
+   <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">OÙ SE TROUVE LE LOCAL POUBELLE ?</div>
+      <div class="faq-answer">
+        Le local poubelle se trouve dans la cour, entre les garages. Il est facilement accessible à tout moment : il s’agit de la porte grise, indiquée par une flèche rouge sur l’image ci-dessous.
+      </div>
+        <div class="image-container">
+            <img src="../image/faq/localp.png" alt="Valise" class="valise-img">
+        </div>
+    </div>
+    
+    <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">À QUELLE HEURE PUIS-JE ARRIVER ET REPARTIR ?</div>
+      <div class="faq-answer">
+        Arrivée : à partir de 16h <br>
+        Départ : jusqu’à 10h <br>
+        Arrivée anticipée (14h à 16h) ou départ tardif (10h à 12h) possibles selon disponibilité, avec un supplément de 15 €. Pour plus d’informations, cliquez ici : <a href="https://alexandrecouto.github.io/Horloge/menu/arrivee.html" style="font-weight: bold; color: black;">"ICI"</a>
+      </div>
+    </div>
+
+   <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">DES DRAPS ET SERVIETTES SONT-ILS FOURNIS ? </div>
+      <div class="faq-answer">
+        Bien sûr ! Le lit est fait à votre arrivée et des serviettes propres sont à disposition.
+      </div>
+    </div>
+    
+    <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">OÙ MANGER DANS LE QUARTIER ? </div>
+      <div class="faq-answer">
+        Le quartier regorge de bonnes adresses ! Je vous ai listé quelques restaurants et cafés sympas dans la rubrique <a href="https://alexandrecouto.github.io/Horloge/menu/restaurants.html" style="font-weight: bold; color: black;">"Restaurent"</a> ou <a href="https://alexandrecouto.github.io/Horloge/menu/cafe.html" style="font-weight: bold; color: black;">"Café - bars"</a> du livret numérique.
+      </div>
+    </div>
+  
+  <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">LE WI-FI EST-IL DISPONIBLE ? </div>
+      <div class="faq-answer">
+        Oui ! Le code Wi-Fi est indiqué dans le livret d’accueil numérique <a href="https://alexandrecouto.github.io/Horloge/menu/wifi.html" style="font-weight: bold; color: black;">"WIFI"</a> et affiché dans l’appartement.
+      </div>
+    </div>
+<!--
+   <hr class="faq-separator">
+    <div class="faq-item">
+      <div class="faq-question">TITRE DE LA QUESTION</div>
+      <div class="faq-answer">
+        Mettez votre description ici. Lorem ipsum dolor sit amet, lus te sumo simul alienum. At his sumo omnes adipisci. An iudico eirmod vim. Ex dictas aperian perfecto mei.
+      </div>
+    </div>
+  </div>
+-->
+  <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+</body>
+</html>

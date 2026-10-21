@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Visiter</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #f8f0e3;
+            color: #333;
+            padding-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            text-align: center;
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            width: 30px;
+            margin: 10px auto;
+        }
+
+        .separator {
+            border: none;
+            height: 2px;
+            background-color: #ccc;
+            width: 75%;
+            margin: 30px auto;
+            opacity: 0.6;
+        }
+
+        .item {
+            background-color: transparent;
+            border-radius: 10px;
+            margin: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .item-image-container {
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-title {
+            font-size: 1em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            font-size: 0.8em;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .item-actions {
+            font-size: 0.75em;
+            color: #555;
+        }
+
+        .item-actions a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .item-actions svg {
+            width: 12px;
+            height: 12px;
+            vertical-align: middle;
+            margin-right: 5px;
+            fill: #555;
+        }
+
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 40px;
+            color: #555;
+            cursor: pointer;
+            transition: opacity 250ms ease, color 250ms ease;
+            z-index: 100;
+        }
+
+        .home-button:hover {
+            color: #007bff;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .item {
+                flex-direction: row;
+            }
+            .item-image-container {
+                width: 30%;
+                margin-right: 20px;
+            }
+            .item-details {
+                flex-grow: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>À VISITER</h1>
+    <hr>
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcSPJw95fOerOZ1HxIOUuDFjKexItjJOZ3xrsN72QFEPARBi1BIkmwSOFfMNPRjF_oZxaS03McVjlQonJmEtoIsPfvJ0zX8WqEXm04bJrg" alt="Image de la sortie 1" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">FOURVIÈRE</h2>
+            <p class="item-description">Fourvière est une colline historique de Lyon, connue pour sa majestueuse basilique Notre-Dame. Elle offre un panorama exceptionnel sur la ville et abrite des vestiges romains, comme le théâtre antique.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place/Basilique+Notre-Dame+de+Fourvière/@45.7647802,4.8176968,44m/data=!3m1!1e3!4m6!3m5!1s0x47f4eba97571522b:0x9d1bcc791b678e29!8m2!3d45.7622698!4d4.822638!16zL20vMGMybGZk?hl=fr&entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D">8 Place de Fourvière, 69005 Lyon</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.fourviere.org/fr/">fourviere.org</a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://www.seminairesbusiness.com/wp-content/uploads/2023/04/un-seminaire-au-musee-des-confluences.png" alt="Image de la sortie 2" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">MUSÉE CONFLUENCE</h2>
+            <p class="item-description">Le Musée des Confluences est un musée lyonnais emblématique, situé à la confluence du Rhône et de la Saône, qui explore les grandes questions de l’humanité à travers les sciences, l’histoire et les cultures. Son architecture audacieuse, conçue par le cabinet autrichien Coop Himmelb(l)au, mêle verre, acier et béton, formant un « nuage » futuriste suspendu au-dessus de la ville.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47f4eaeddd6c9055:0xae3e2900f5f2c337?sa=X&ved=1t:8290&ictx=111">86 Quai Perrache, 69002 Lyon</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://museedesconfluences.fr">museedesconfluences.fr</a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Lyon_-_Lugdunum_-_Théatre_Romain.jpg" alt="Image de la sortie 3" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">THÉÂTRE ROMAIN</h2>
+            <p class="item-description">Le Théâtre antique de Lyon, construit sous Auguste, est l'un des principaux vestiges romains de la ville, pouvant accueillir jusqu'à 10 000 spectateurs. Situé sur la colline de Fourvière, il a été redécouvert au XIXe siècle et restauré à partir de 1933, formant aujourd'hui un site archéologique remarquable.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="#">17 rue Cléberg, 69005 LYON</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://lugdunum.grandlyon.com">lugdunum.grandlyon.com</a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://lyonsecret.com/wp-content/uploads/2022/02/parc-tete-dor.jpg" alt="Image de la sortie 4" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">PARC DE LA TETE D'OR</h2>
+            <p class="item-description">Le Parc de la Tête d'Or est un immense espace vert au cœur de Lyon, offrant un lac, un zoo et un jardin botanique, parfaits pour la détente et les promenades. Créé en 1857, il est inspiré des jardins anglais et accueille chaque année des millions de visiteurs en quête de nature et de sérénité.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place/Porte+des+Enfants+du+Rhône/@45.7772854,4.8452004,698m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47f4eaef280f95c3:0xa79a7c343e94ca03!8m2!3d45.7772854!4d4.8452004!16s%2Fg%2F1q6f_rqhs?hl=fr&entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D">Parc de la Tête d'Or, Rue de Créqui, 69006 Lyon</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.loisirs-parcdelatetedor.com/">loisirs-parcdelatetedor.com</a>
+            </p>
+        </div>
+    </div>
+
+    <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bienvenue</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --background-main: #F7F3E9;
+      --text-primary: #000000;
+      --hover-dark: #333333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--background-main);
+      color: var(--text-primary);
+      font-family: 'Roboto', sans-serif;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    h1 {
+      font-weight: bold;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+
+    .location-section {
+      margin-bottom: 40px;
+    }
+
+    .location-section p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .justified-text {
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: opacity 250ms ease, color 250ms ease;
+      z-index: 100;
+    }
+
+    .home-button:hover {
+      color: var(--hover-dark);
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 style="font-family: 'Montserrat', sans-serif;">BIENVENUE</h1>
+  </header>
+
+  <main>
+    <section class="location-section">
+      <h3 style="text-align: center;">Bienvenue sur notre application !</h3><br><br>
+      <p class="justified-text">
+      Madame, Monsieur, <br><br>
+      
+      Nous vous souhaitons la bienvenue et sommes ravis de vous accueillir dans notre logement. Ce livret d’accueil digital a été conçu pour vous accompagner tout au long de votre séjour. <br><br>
+      
+      Vous y trouverez des informations pratiques sur le logement, des recommandations locales (restaurants, commerces, activités), ainsi que des conseils utiles pour faciliter votre expérience. <br>
+      
+      Que vous soyez en déplacement professionnel, en vacances ou de passage dans la région, notre priorité est de vous offrir un cadre confortable, serein et propice à la détente. <br><br>
+      Nous restons à votre entière disposition pour toute question ou besoin particulier avant, pendant ou après votre séjour. <br><br>
+      Au plaisir de vous accueillir,
+
+</p>
+    </section>
+  </main>
+
+  <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour à l’accueil">🏠</a>
+
+</body>
+</html>
+

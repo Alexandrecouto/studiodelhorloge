@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arrivée - Départ</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Open+Sans&family=Playfair+Display&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #F7F3E9;
+      color: #000;
+    }
+
+    .info-bloc {
+      max-width: 350px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .info-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .subtitle {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .text {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .hour {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .illustration {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: opacity 250ms ease, color 250ms ease;
+      z-index: 100;
+    }
+
+    .home-button:hover {
+      color: var(--hover-dark);
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+<section class="info-bloc">
+  <h1 class="main-title">ARRIVÉE - DÉPART</h1>
+
+  <div class="info-row">
+
+    <!-- CHECK-IN -->
+    <div class="info-col">
+      <h2 class="subtitle">CHECK-IN</h2>
+
+      <p class="text">
+        Arrivée à partir de <span class="hour">16h00</span>
+      </p>
+
+      <p style="text-align: justify;">
+        Bienvenue dans notre studio ! Nous sommes ravis de vous accueillir et espérons que vous vous sentirez comme chez vous.
+      </p>
+
+      <img src="https://img.freepik.com/photos-premium/tasse-cafe-plateau-bois-lit-fleurs-bougies_176873-11479.jpg"
+           alt="Lit avec plateau et tasses"
+           class="illustration" />
+
+      <!-- OPTION ARRIVÉE ANTICIPÉE -->
+      <div class="option-box">
+        <h3 class="option-title">Arrivée anticipée</h3>
+
+        <p class="option-text">
+          Jouez les prolongations en arrivant à partir de
+          <strong>14h</strong> au lieu de <strong>16h</strong>
+          dans votre logement.
+        </p>
+
+        <p class="option-note">
+          (sur demande et selon disponibilité)
+        </p>
+
+        <div class="option-price">15 € en option</div>
+      </div>
+    </div>
+
+    <!-- CHECK-OUT -->
+    <div class="info-col">
+      <h2 class="subtitle">CHECK-OUT</h2>
+
+      <p class="text">
+        Départ à <span class="hour">10h00</span>
+      </p>
+
+      <p style="text-align: justify;">
+        Afin que votre départ se déroule le plus agréablement possible, merci de laisser les clés dans la boîte prévue à cet effet et de vérifier que le logement est correctement rangé avant votre départ.
+      </p>
+
+      <img src="https://i0.wp.com/levoyageur-organise.com/wp-content/uploads/2024/07/pexels-photo-7368313-edited.jpeg?w=867&ssl=1"
+           alt="Valises devant un canapé"
+           class="illustration" />
+
+      <!-- OPTION DÉPART TARDIF -->
+      <div class="option-box">
+        <h3 class="option-title">Départ tardif</h3>
+
+        <p class="option-text">
+          Profitez de votre moment plus longtemps grâce au départ tardif.
+          Vous pouvez quitter les lieux jusqu'à
+          <strong>12h</strong> au lieu de <strong>10h</strong>.
+        </p>
+
+        <p class="option-note">
+          (sur demande et selon disponibilité)
+        </p>
+
+        <div class="option-price">15 € en option</div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="https://alexandrecouto.github.io/Horloge/"
+     class="home-button"
+     aria-label="Retour accueil">
+     🏠
+  </a>
+</section>
+</body>
+</html>

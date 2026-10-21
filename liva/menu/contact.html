@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Great+Vibes&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg-color: #F7F3E9;
+      --text-primary: #000;
+      --text-secondary: #555;
+      --hover-dark: #333;
+      --accent: #fff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-primary);
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 32px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .contact-item i {
+      font-size: 18px;
+      margin-right: 12px;
+      background: #000;
+      color: #fff;
+      padding: 10px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .contact-text {
+      font-weight: 600;
+    }
+
+    .follow-us {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .follow-us img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .follow-box {
+      border: 1px solid #ccc;
+      padding: 12px;
+      display: inline-block;
+      background: var(--accent);
+    }
+
+    .follow-box p {
+      font-family: 'Great Vibes', cursive;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .follow-box a {
+      display: block;
+      color: #000;
+      text-decoration: none;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .footer h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .footer p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: opacity 250ms ease, color 250ms ease;
+      z-index: 100;
+    }
+
+    .home-button:hover {
+      color: var(--hover-dark);
+      opacity: 0.8;
+    }
+
+    @media screen and (max-width: 480px) {
+      .contact-item {
+        font-size: 15px;
+      }
+
+      .contact-item i {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+
+      .follow-box p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CONTACT</h1>
+
+    <div class="contact-item">
+      <i class="fas fa-phone-alt"></i>
+      <div><span class="contact-text">06.52.86.69.26</span></div>
+    </div>
+
+    <div class="contact-item">
+      <i class="fas fa-envelope"></i>
+      <div><span class="contact-text">alexandrefernandescouto@gmail.com</span></div>
+    </div>
+
+    <div class="contact-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <div>
+        <span class="contact-text">10 Impasse de l'Horloge<br>69009 Lyon</span>
+      </div>
+    </div>
+ <!--
+    <div class="follow-us">
+      <img src="https://via.placeholder.com/300x180.png?text=Photo" alt="Photo illustrative" />
+      <div class="follow-box">
+        <p>Suivez nous</p>
+        <a href="#"><i class="fab fa-instagram"></i> @bienvenuecheznous</a>
+        <a href="#"><i class="fab fa-facebook-square"></i> @bienvenuecheznous</a>
+      </div>
+    </div>
+  -->
+    <div class="footer">
+      <!--<h2>MERCI</h2>
+      <p>Bon retour chez vous. À bientôt !</p> -->
+    </div>
+  </div>
+
+  <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+</body>
+</html>

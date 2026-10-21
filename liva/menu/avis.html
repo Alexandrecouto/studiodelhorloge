@@ -1,0 +1,136 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+  <title>Avis</title>
+  <style>
+
+    :root {
+      --background: #F7F3E9;
+      --text-primary: #000;
+      --hover-dark: #444;
+      --box-bg: #fff;
+      --star-color: #000;
+      --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-script: 'Parisienne', cursive;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      text-align: center;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-family: "Caveat", cursive;
+      font-size: 1.8rem;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .review-box {
+      background-color: var(--box-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      width: 100%;
+      max-width: 380px;
+      margin-bottom: 30px;
+    }
+
+    .stars {
+      font-size: 1.5rem;
+      color: var(--star-color);
+      margin-bottom: 15px;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: opacity 250ms ease, color 250ms ease;
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .home-button:hover {
+      color: var(--hover-dark);
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Avis</h1>
+  <div class="subtitle">Partager un avis de votre séjour</div>
+
+  <div class="review-box">
+    <div class="stars">★★★★★</div>
+    <div class="review-text">
+      SI VOUS AVEZ APPRÉCIÉ VOTRE SÉJOUR, N’HÉSITEZ PAS À NOUS LAISSER UN AVIS SUR GOOGLE :
+    </div>
+    <div class="image-container img">
+        <a href="https://g.page/r/CSSJun4JJ52FEAE/review">
+            <img src="https://www.dimeda.fr/wp-content/uploads/2020/04/gmbstars.png"/>
+        </a>
+    </div>
+  </div>
+  
+  <div>
+    <ul>
+        <!--<li>Sur :<a href="#">AirBnb</a> </li> 
+        <li>Sur :<a href="#">Booking</a> </li> 
+        <li>Sur :<a href="#">Google</a> </li> -->
+    </ul>
+  </div>
+  <br>
+  <div class="subtitle">
+      Merci.
+    </div>
+<!--
+  <div class="image-container">
+    <img src="https://via.placeholder.com/400x250.png?text=Photo+de+l'appartement" alt="Photo de l'appartement" />
+  </div>
+-->
+  <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+
+</body>
+</html>

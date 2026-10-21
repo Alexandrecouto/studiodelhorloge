@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informations WiFi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* --- Réinitialisation et Styles Globaux --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FDFCFB; /* Blanc cassé */
+            color: #222222; /* Noir/Gris foncé pour le texte */
+            line-height: 1.6;
+            /* Ajout d'un padding en bas pour éviter que le contenu ne passe SOUS le bouton fixe */
+            padding-bottom: 80px; /* Ajustez si besoin (hauteur bouton + marge) */
+        }
+
+        /* --- Conteneur Principal --- */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        /* --- En-tête Principal (Titre WIFI & Ligne) --- */
+        .main-header {
+            margin-bottom: 2rem;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: #222222;
+        }
+
+        .divider {
+            width: 30px;
+            height: 1px;
+            background-color: #222222;
+            margin: 0 auto;
+        }
+
+        /* --- Boîte d'Informations WiFi --- */
+        .wifi-info-box {
+            border: 1px solid #222222;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+
+        .info-column {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-header i {
+            font-size: 1rem;
+            color: #222222;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .info-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #222222;
+        }
+
+        .info-data {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #222222;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* --- Section Texte (Lorem Ipsum) --- */
+        .text-content {
+            margin-bottom: 2rem;
+        }
+
+        .text-content p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.6;
+            text-align: left;
+            color: #222222;
+        }
+
+        /* --- Section Image avec Arche --- */
+        .image-section {
+            background-color: #F8F6F4;
+            border-top-left-radius: 150px;
+            border-top-right-radius: 150px;
+            padding-top: 2rem;
+            overflow: hidden;
+             /* Pas de margin-bottom ici car le padding du body gère l'espace */
+        }
+
+        .image-section img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- Bouton Accueil Fixe --- */
+        .home-button {
+            position: fixed; /* Positionné par rapport à la fenêtre du navigateur */
+            bottom: 20px;    /* 20px du bas */
+            right: 20px;     /* 20px de la droite */
+            background: none;
+            border: none;
+            font-size: 40px; /* Taille de l'emoji */
+            color: #222222;  /* Couleur du texte principal */
+            cursor: pointer;
+            transition: opacity 250ms ease, color 250ms ease; /* Transition douce */
+            z-index: 100;    /* S'assure qu'il est au-dessus des autres éléments */
+            text-decoration: none; /* Enlève le soulignement du lien */
+        }
+
+        .home-button:hover {
+            color: #555555;  /* Couleur au survol (gris plus clair) */
+            opacity: 0.8;    /* Légère transparence au survol */
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <header class="main-header">
+            <h1 class="main-title">WIFI</h1>
+            <div class="divider"></div>
+        </header>
+
+        <section class="wifi-info-box">
+            <div class="info-column">
+                <div class="info-header">
+                    <i class="fas fa-envelope"></i> <h2 class="info-title">RÉSEAU</h2>
+                </div>
+                <p class="info-data">Horloge</p>
+            </div>
+            <div class="info-column">
+                <div class="info-header">
+                    <i class="fas fa-lock"></i> <h2 class="info-title">MOT DE PASSE</h2>
+                </div>
+                <p class="info-data">27Bz4tBZf2</p> </div>
+        </section>
+
+        <section class="text-content">
+             <p>
+                Chers voyageurs,
+                <br><br>
+                Pour vous connecter à notre Wi-Fi, veuillez sélectionner notre réseau dans la liste disponible sur votre appareil. Une page de connexion s'ouvrira alors automatiquement ; patientez un instant si elle n'apparaît pas tout de suite. C'est sur cette page qu'il faudra entrer le mot de passe pour activer votre accès à Internet.
+                <br><br>
+                Merci et bonne connexion !
+             </p>
+        </section>
+
+        <section class="image-section">
+            <img src="https://plum-living.com/media/cache/resolve/app_shop_kit_home_project/k170-bureau-suspendu-2-portes/66b2223a975ae411861199.jpg" alt="Description de l'image (ex: Bureau et chaise)">
+        </section>
+
+    </div> <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+
+</body>
+</html>

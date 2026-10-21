@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À Visiter</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #f8f0e3;
+            color: #333;
+            padding-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            text-align: center;
+            color: #555;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            width: 30px;
+            margin: 10px auto;
+        }
+
+        .separator {
+            border: none;
+            height: 2px;
+            background-color: #ccc;
+            width: 150px;
+            margin: 30px auto;
+            opacity: 0.6;
+        }
+
+        .item {
+            background-color: transparent;
+            border-radius: 10px;
+            margin: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .item-image-container {
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-title {
+            font-size: 1em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            font-size: 0.8em;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .item-actions {
+            font-size: 0.75em;
+            color: #555;
+        }
+
+        .item-actions a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .item-actions svg {
+            width: 12px;
+            height: 12px;
+            vertical-align: middle;
+            margin-right: 5px;
+            fill: #555;
+        }
+
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 40px;
+            color: #555;
+            cursor: pointer;
+            transition: opacity 250ms ease, color 250ms ease;
+            z-index: 100;
+        }
+
+        .home-button:hover {
+            color: #007bff;
+            opacity: 0.8;
+        }
+
+        @media (min-width: 768px) {
+            .item {
+                flex-direction: row;
+            }
+            .item-image-container {
+                width: 30%;
+                margin-right: 20px;
+            }
+            .item-details {
+                flex-grow: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>À VISITER</h1>
+    <hr>
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipMSt9PpD6WfSFh0nughAAtwniLFsQl8nbkNw1Pn=s1360-w1360-h1020" alt="Image de la sortie 2" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">CONFLUENCE</h2>
+            <p class="item-description">Le Centre Commercial Confluence est un vaste complexe de 53 000 m² situé au sud de la Presqu'île de Lyon, inauguré en 2012. Il propose plus de 90 boutiques, 26 restaurants, un cinéma UGC de 14 salles et un hôtel Novotel, le tout dans une architecture moderne inspirée de l’univers nautique.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place/Pôle+de+commerces+et+de+loisirs+Confluence/@45.741096,4.8172859,699m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47f4ebcbbf5dcf7d:0x8046dc3f1ae4d957!8m2!3d45.741096!4d4.8172859!16s%2Fg%2F1233fxtn?entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D">112 Cr Charlemagne, 69002 Lyon</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.westfield.com/fr/france/confluence?gad_source=1&gbraid=0AAAAADbrwi59DNpGP1F_czeJwLo2xNPWY&gclid=Cj0KCQjwtpLABhC7ARIsALBOCVozDM6DIJkEX-G9qYtgu54LLYbi8bXo84twg4E9kUpMZIaFFHaufmQaAm8PEALw_wcB">Confluence</a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipMwqY_JWIfPR9I3xg44UNI1YIJ4bk07JnzkJQAl=s1360-w1360-h1020" alt="Image de la sortie 2" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">LA PART-DIEU</h2>
+            <p class="item-description">Le centre commercial Westfield La Part-Dieu, situé dans le 3ᵉ arrondissement de Lyon, est l’un des plus grands centres commerciaux d’Europe, avec plus de 240 boutiques, restaurants et un cinéma. Inauguré en 1975, il a été récemment modernisé pour offrir une expérience urbaine et lumineuse, intégrant des espaces verts et une architecture contemporaine.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place/Westfield+La+Part-Dieu/@45.7616995,4.856256,698m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47f4ea61f6f676c3:0xe8033d3c07f3828f!8m2!3d45.7616995!4d4.856256!16s%2Fm%2F05sy8j6?entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D">17 Rue Dr Bouchut, 69003 Lyon</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.westfield.com/fr/france/lapartdieu">La Part-Dieu</a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/29/e9/b0/allees-spacieuses-et.jpg?w=1200&h=-1&s=1" alt="Image de la sortie 3" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">ÉCULLY GRAND OUEST</h2>
+            <p class="item-description">Le centre commercial Écully Grand Ouest, situé à proximité de Lyon, propose plus de 80 boutiques et restaurants, dont des enseignes telles que Zara, Nature & Découvertes et Carrefour, sur une surface de 47 000 m². Accessible facilement en transports en commun et disposant d'un parking avec bornes de recharge, il accueille environ 6 millions de visiteurs par an.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place/Écully+Grand+Ouest/@45.7889363,4.7750308,698m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47f4ecbc218e5aa5:0x1d517511aefb8e24!8m2!3d45.7889363!4d4.7750308!16s%2Fg%2F113dgxpx0?entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D">Grand Ouest, Chem. Jean-Marie Vianney, 69130 ÉcullyN</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://ecully-grand-ouest.klepierre.fr">ecully-grand-ouest.klepierre.fr</a>
+            </p>
+        </div>
+    </div>
+
+    <hr class="separator">
+
+    <div class="item">
+        <div class="item-image-container">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipMKcRqSzwME6f_vNkKPHJF5OWBRG0No7CfUlOKf=s1360-w1360-h1020" alt="Image de la sortie 4" class="item-image">
+        </div>
+        <div class="item-details">
+            <h2 class="item-title">CENTRE COMMERCIAL AUSHOPPING</h2>
+            <p class="item-description">Le centre commercial Aushopping Dardilly Porte de Lyon, situé au nord-ouest de Lyon, propose une large sélection de boutiques, de restaurants et de services, avec des enseignes de mode, de beauté, de sport et un hypermarché Auchan. Ouvert du lundi au samedi, il accueille régulièrement des animations familiales et des offres promotionnelles tout au long de l’année.</p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://www.google.com/maps/place/Aushopping+Porte+de+Lyon/@45.8202214,4.7667507,698m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47f4933c7ac1e775:0x5348dbaeec6dd996!8m2!3d45.8202214!4d4.7667507!16s%2Fg%2F1q665w0k5?hl=fr&entry=ttu&g_ep=EgoyMDI1MDQxNi4xIKXMDSoJLDEwMjExNDUzSAFQAw%3D%3D">1 Av. de la Prte de Lyon, 69570 Dardilly</a>
+            </p>
+            <p class="item-actions">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>
+                <a href="https://dardilly.aushopping.com">dardilly.aushopping.com</a>
+            </p>
+        </div>
+    </div>
+
+    <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+
+</body>
+</html>

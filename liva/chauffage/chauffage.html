@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chauffage limité à 19 °C — Information</title>
+  <style>
+    :root{
+      --bg:#f7f8fa; --card:#ffffff; --accent:#2b6cb0; --muted:#666;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+    }
+    header{
+      text-align:center;
+      padding:28px 16px;
+      background:linear-gradient(90deg,#e6f0ff,transparent);
+    }
+    header h1{margin:0;font-size:1.8rem}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:1rem}
+    main{
+      max-width:900px;
+      margin:24px auto;
+      padding:16px;
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:18px;
+    }
+    .card{
+      background:var(--card);
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 6px 20px rgba(20,30,50,0.06);
+    }
+    .note{
+      background:transparent;
+      padding:10px 4px;
+      font-size:0.95rem;
+    }
+    .links{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-block;padding:10px 12px;border-radius:8px;text-decoration:none;
+      color:white;background:var(--accent);transition:0.2s;
+    }
+    .btn:hover{opacity:0.9}
+    .btn.link{background:#eee;color:#111;border:0}
+    .modal{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      background:rgba(0,0,0,0.35);visibility:hidden;opacity:0;transition:all .18s ease;
+    }
+    .modal[aria-hidden="false"]{visibility:visible;opacity:1}
+    .modal-content{
+      width:90%;max-width:560px;background:white;padding:18px;border-radius:10px;position:relative;
+      box-shadow:0 20px 50px rgba(0,0,0,0.15);
+    }
+    .close{position:absolute;right:12px;top:10px;background:transparent;border:0;font-size:18px;cursor:pointer}
+    .small{font-size:0.85rem;color:var(--muted)}
+    @media (max-width:900px){
+      main{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Chauffage réglé à 19 °C</h1>
+    <p class="subtitle">Par souci écologique et conformément à la loi française</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Pourquoi 19 °C ?</h2>
+      <p>
+        La réglementation française fixe la température maximale moyenne de chauffage
+        à <strong>19 °C</strong> dans les logements, bureaux et établissements recevant du public.
+        Cette règle permet d’économiser l’énergie et de limiter l’impact environnemental,
+        tout en assurant le confort des occupants.
+      </p>
+
+      <div class="links">
+        <a class="btn" id="open-article">Voir l’article officiel (résumé)</a>
+        <a class="btn link" href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031748167" 
+           target="_blank" rel="noopener">
+          Texte officiel sur Légifrance (Art. R.241-26)
+        </a>
+      </div>
+    </section>
+
+    <aside class="note">
+      <strong>À savoir :</strong>
+      <ul>
+        <li>L’article <b>R.241-26</b> du Code de l’énergie fixe la limite générale à <b>19 °C</b>.</li>
+        <li>L’article <b>R.241-27</b> précise les températures possibles en cas d’inoccupation (16 °C, 8 °C).</li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- Fenêtre modale -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button id="close-modal" class="close">✕</button>
+      <h3>Résumé officiel</h3>
+      <p>
+        « Dans les locaux à usage d’habitation, d’enseignement, de bureaux ou recevant du public,
+        la limite supérieure de température de chauffage est fixée, en dehors des périodes
+        d’inoccupation, en moyenne à 19 °C. »
+      </p>
+      <p class="small">
+        Source : <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031748167" 
+        target="_blank" rel="noopener">Article R.241-26 du Code de l’énergie</a> — Légifrance.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    document.getElementById('open-article').onclick = () => modal.setAttribute('aria-hidden','false');
+    document.getElementById('close-modal').onclick = () => modal.setAttribute('aria-hidden','true');
+    modal.addEventListener('click', e => { if (e.target === modal) modal.setAttribute('aria-hidden','true'); });
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transports à Lyon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #F7F3E9;
+      --text-primary: #000000;
+      --text-secondary: #333333;
+      --text-description: #666666;
+      --hover-dark: #111111;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      letter-spacing: 0.5px;
+      margin: 0;
+      padding: 0 20px 80px; /* padding bas pour ne pas cacher le bouton 🏠 */
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--text-secondary);
+      margin: 20px 0 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0 0 20px;
+    }
+
+    li {
+      font-size: 14px;
+      color: var(--text-description);
+      margin-bottom: 8px;
+    }
+
+    .separator {
+      border-bottom: 1px solid #ccc;
+      margin: 30px 0;
+    }
+
+    .home-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 40px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: opacity 250ms ease, color 250ms ease;
+      z-index: 100;
+      text-decoration: none;
+    }
+
+    .home-button:hover {
+      color: var(--hover-dark);
+      opacity: 0.8;
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        font-size: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>TRANSPORTS</h1>
+
+  <h2>Transports en commun urbains (TCL)</h2>
+  <ul>
+    <li><strong>Métro :</strong> 4 lignes (A, B, C, D) desservant la plupart des quartiers. Rapide et fiable, fonctionne de 5h00 à minuit environ.</li>
+    <li><strong>Tramway :</strong> 7 lignes (T1 à T7) complétant le métro et desservant la périphérie. Confortable et pratique.</li>
+    <li><strong>Bus :</strong> Plus de 130 lignes couvrant l'agglomération. Circulation de 5h00 à minuit, avec services nocturnes.</li>
+    <li><strong>Funiculaires :</strong> 2 lignes : Fourvière (basilique) et Saint-Just (quartier). Permettent d'accéder aux collines.</li>
+    <li><strong>Vélo'v :</strong> Plus de 340 stations de vélos en libre-service. Idéal pour les courts trajets.</li>
+    <li><strong>Navettes fluviales (Vaporeto) :</strong> Circulation sur la Saône. Agréable pour les balades touristiques.</li>
+  </ul>
+
+  <div class="separator"></div>
+
+  <h2>Trains</h2>
+  <ul>
+    <li><strong>Gares principales :</strong></li>
+    <ul>
+      <li>Lyon Part-Dieu : TGV, TER, Intercités, Ouigo (France et Europe).</li>
+      <li>Lyon Perrache : TGV, TER, Intercités.</li>
+      <li>Lyon Saint-Exupéry TGV : connectée directement à l'aéroport.</li>
+    </ul>
+    <li><strong>Services :</strong></li>
+    <ul>
+      <li>TGV : grandes villes françaises.</li>
+      <li>TER : réseau régional (Auvergne-Rhône-Alpes).</li>
+      <li>Ouigo : trains à bas coût.</li>
+    </ul>
+    <li><strong>Informations :</strong> Réservations via SNCF Connect, Ouigo.</li>
+  </ul>
+
+  <div class="separator"></div>
+
+  <h2>Avions</h2>
+  <ul>
+    <li><strong>Aéroport Lyon-Saint Exupéry (LYS) :</strong> Vols nationaux et internationaux. Connecté à la gare TGV.</li>
+    <li><strong>Accès :</strong> Rhônexpress (tramway express), taxis, VTC, location de voiture.</li>
+    <li><strong>Informations :</strong> Site web de l’aéroport.</li>
+  </ul>
+
+  <div class="separator"></div>
+
+  <h2>Autres options</h2>
+  <ul>
+    <li>Taxis et VTC disponibles partout dans la ville.</li>
+    <li>Voitures de location via agences locales.</li>
+    <li>Covoiturage via plateformes comme BlaBlaCar.</li>
+  </ul>
+
+  <div class="separator"></div>
+
+  <h2>Informations pratiques générales</h2>
+  <ul>
+    <li>Billets TCL valables sur tous les transports urbains (métro, tram, bus, funiculaire).</li>
+    <li>Applications mobiles : TCL (horaires, itinéraires, titres).</li>
+    <li>Sites utiles : <a href="https://www.tcl.fr" style="font-weight: bold; color: black;">TCL</a>, <a href="https://sytral-mobilites.fr" style="font-weight: bold; color: black;">SYTRAL</a>, <a href="https://www.sncf-connect.com" style="font-weight: bold; color: black;">SNCF</a>, <a href="https://www.lyonaeroports.com/" style="font-weight: bold; color: black;">Aéroport de Lyon-Saint Exupéry</a>.</li>
+  </ul>
+
+  <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+
+</body>
+</html>

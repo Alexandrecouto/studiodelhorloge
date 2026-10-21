@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants</title>
+    <style>
+        /* --- Variables CSS (si besoin, bien que non explicitement demandé pour l'image) --- */
+        :root {
+            --text-primary: #333; /* Couleur principale du texte (gris foncé) */
+            --text-secondary: #666; /* Couleur secondaire (gris moyen) */
+            --background-color: #F7F3E9; /* Couleur de fond (blanc) */
+            --separator-color: #eee; /* Couleur des séparateurs */
+            --hover-dark: #000000; /* Couleur au survol pour le bouton home */
+        }
+
+        /* --- Styles généraux --- */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif; /* Police sans-serif pour le corps */
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-size: 14px; /* Taille de police de base */
+            line-height: 1.6; /* Hauteur de ligne pour la lisibilité */
+        }
+
+        /* --- En-tête --- */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-family: 'Times New Roman', Times, serif; /* Police Serif pour le titre */
+            font-size: 2.5em; /* Taille du titre */
+            font-weight: normal; /* Poids normal, pas gras */
+            margin-bottom: 5px;
+            letter-spacing: 1px; /* Espacement des lettres */
+            color: var(--text-primary);
+        }
+
+        .header hr {
+            width: 30px; /* Largeur du séparateur sous le titre */
+            border: none;
+            border-top: 2px solid var(--text-primary); /* Épaisseur et couleur du séparateur */
+            margin: 0 auto 20px auto; /* Centrage et espacement */
+        }
+
+        .intro-text {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            max-width: 600px; /* Limite la largeur pour une meilleure lecture */
+            margin: 0 auto 30px auto; /* Centrage et espacement */
+            text-align: center;
+        }
+
+        /* --- Liste des Restaurants --- */
+        .restaurant-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .restaurant-item {
+            display: flex; /* Utilisation de Flexbox pour aligner image et texte */
+            align-items: flex-start; /* Aligne les éléments en haut */
+            padding: 20px 0; /* Espacement vertical */
+            border-bottom: 1px solid var(--separator-color); /* Ligne de séparation */
+        }
+
+        .restaurant-item:last-child {
+            border-bottom: none; /* Pas de ligne pour le dernier élément */
+        }
+
+        .restaurant-image {
+            flex: 0 0 100px; /* Ne grandit pas, ne rétrécit pas, base de 100px */
+            margin-right: 15px; /* Espace entre l'image et le texte */
+        }
+
+        .restaurant-image img {
+            width: 100%; /* L'image prend toute la largeur de son conteneur */
+            height: auto; /* Maintient les proportions */
+            display: block; /* Évite les espaces indésirables sous l'image */
+            border-radius: 4px; /* Bords légèrement arrondis (optionnel) */
+        }
+
+        .restaurant-details {
+            flex: 1; /* Prend l'espace restant */
+        }
+
+        .restaurant-details h3 {
+            font-family: 'Helvetica Neue', Arial, sans-serif; /* Même police que le corps */
+            font-size: 1.1em;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+            color: var(--text-primary);
+            display: flex; /* Pour aligner l'icône et le nom */
+            align-items: center;
+        }
+
+        .restaurant-details .location-icon {
+            /* Style pour une icône de localisation SVG ou FontAwesome si ajoutée */
+            /* Exemple avec un caractère : content: '📍'; */
+            margin-right: 8px; /* Espace avant le nom */
+            color: var(--text-secondary);
+             /* Utilisation d'un caractère Unicode pour la punaise */
+            display: inline-block; /* Permet de le styliser */
+            font-size: 1.2em;
+        }
+         /* Icône spécifique de l'image (cercle avec point) - via caractère */
+        .icon-pin::before {
+           content: '⊙'; /* Caractère Unicode représentant un cercle avec un point */
+           font-size: 1.2em; /* Ajuster la taille si nécessaire */
+           margin-right: 8px;
+           color: var(--text-primary); /* Ou var(--text-secondary) selon préférence */
+           display: inline-block;
+           vertical-align: middle; /* Pour mieux aligner avec le texte */
+        }
+
+
+        .restaurant-address {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin: 0 0 10px 0;
+        }
+
+        .restaurant-description {
+            font-size: 0.9em;
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+        }
+
+        .restaurant-tags {
+            font-size: 0.8em;
+            color: var(--text-secondary);
+            text-transform: uppercase; /* Texte en majuscules comme dans l'image */
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Bouton Home --- */
+        .home-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 40px; /* Taille de l'emoji */
+            color: var(--text-primary); /* Utilise la variable CSS */
+            cursor: pointer;
+            transition: opacity 250ms ease, color 250ms ease;
+            z-index: 100;
+            text-decoration: none; /* Enlève le soulignement du lien */
+        }
+
+        .home-button:hover {
+            color: var(--hover-dark); /* Utilise la variable CSS */
+            opacity: 0.8;
+        }
+
+        /* --- Responsive (Bien que Flexbox gère déjà bien) --- */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px; /* Moins de padding sur petits écrans */
+            }
+
+            .header h1 {
+                font-size: 2em; /* Titre légèrement plus petit */
+            }
+
+            .restaurant-item {
+                /* Optionnel: passer en colonne si l'écran est très petit */
+                /* flex-direction: column; */
+                /* align-items: center; */ /* Centrer les éléments en colonne */
+            }
+
+            .restaurant-image {
+                 /* flex: 0 0 80px; Plus petite image sur petits écrans */
+                 /* margin-right: 10px; */
+                 /* Si en colonne: */
+                 /* margin-right: 0; */
+                 /* margin-bottom: 15px; */ /* Espace sous l'image */
+            }
+
+            .home-button {
+                font-size: 35px; /* Bouton légèrement plus petit */
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>RESTAURANTS</h1>
+        <hr>
+        <p class="intro-text">
+            Nous avons soigneusement sélectionné pour vous des recommandations de restaurants locaux à découvrir dans notre ville. Cette liste devrait vous guider vers des plats délicieux préparés par des chefs talentueux.
+        </p>
+    </header>
+
+    <ul class="restaurant-list">
+        <li class="restaurant-item">
+            <div class="restaurant-image">
+                <img src="https://www.pistourestaurant.fr/wp-content/uploads/2022/09/photo.pistou.01.jpg" alt="Pistou">
+            </div>
+            <div class="restaurant-details">
+                <h3><span class="icon-pin"></span>PISTOU</h3>
+                <p class="restaurant-address">4 Quai Raoul Carrié, 69009 Lyon</p>
+                <p class="restaurant-description">
+                    Situé à 450 mètres, Pistou offre un cadre convivial avec une décoration mêlant bois, pierre et touches végétales. La cuisine, à la fois raffinée et généreuse, propose des plats à partager ou individuels, inspirés des traditions provençales et des influences contemporaines. Les assiettes sont soignées, tant sur le plan visuel que gustatif. Vous pouvez consulter leur site web : <a href="https://www.pistourestaurant.fr">Pistou.</a>
+                </p>
+                <p class="restaurant-tags">BISRONOMIQUE</p>
+            </div>
+        </li>
+
+        <li class="restaurant-item">
+            <div class="restaurant-image">
+                 <img src="https://asset.uniiti.com/images/shops/slides/1a2f1b3ef1b25e76addd494ecc94a96ae724de4b.jpeg" alt="Les trois Sakuras">
+            </div>
+            <div class="restaurant-details">
+                <h3><span class="icon-pin"></span>LES TROIS SAKURAS</h3>
+                <p class="restaurant-address">25 rue Joannes Carret, 69009 Lyon</p>
+                <p class="restaurant-description">
+                    Situé à 650 mètres, Les Trois Sakuras se distingue par son buffet à volonté servi directement à table. Les clients passent leurs commandes via une tablette, permettant de choisir parmi une large sélection de spécialités japonaises telles que sushis, makis, temakis, yakitoris, et autres plats asiatiques, tous préparés à base de produits frais. Ce système permet de goûter à une variété de plats sans avoir à se déplacer, favorisant une expérience culinaire agréable et interactive. Vous pouvez consulter leur site web : <a href="https://lestroissakuras.fr/fr">Les trois Sakuras.</a>
+                </p>
+                <p class="restaurant-tags">JAPONNAIS</p>
+            </div>
+        </li>
+
+        <li class="restaurant-item">
+            <div class="restaurant-image">
+                 <img src="https://www.maisons-bocuse.com/wp-content/uploads/2024/06/Fond-Rose-Nicolas-Villion-54.png" alt="Fond Rose">
+            </div>
+            <div class="restaurant-details">
+                <h3><span class="icon-pin"></span>FOND ROSE - BOCUSE</h3>
+                <p class="restaurant-address">25 chemin de Fond-Rose, 69300 Caluire-et-Cuire</p>
+                <p class="restaurant-description">
+                    Situé à 700 mètres, le Restaurant Fond Rose, est une adresse emblématique du groupe Bocuse, nichée dans une maison bourgeoise des années 1920. Entouré d'un parc aux arbres centenaires, ce lieu offre un cadre paisible et verdoyant, idéal pour une escapade gastronomique aux portes de Lyon. Vous pouvez consulter leur site web : <a href="https://www.maisons-bocuse.com/restaurants-lyon-ouverts/restaurant-fond-rose-caluire">Fond Rose.</a>
+                </p>
+                <p class="restaurant-tags">GASTRONOMIE</p>
+            </div>
+        </li>
+        
+        <li class="restaurant-item">
+            <div class="restaurant-image">
+                 <img src="https://antonioemarcocaluire.zelty-order.fr/_next/image?url=https%3A%2F%2Fmedia.zelty.fr%2Fimages%2F1181%2F08141.jpg&w=1200&q=75" alt="Bella Vista d'Antonio & Marco">
+            </div>
+            <div class="restaurant-details">
+                <h3><span class="icon-pin"></span>ANTONIO & MARCO - BELLA VISTA</h3>
+                <p class="restaurant-address">4 quai Clémenceau, 69300 Caluire-et-Cuire</p>
+                <p class="restaurant-description">
+                    Situé à 930 mètres, L'Osteria Bella Vista d'Antonio & Marco, est une trattoria italienne moderne qui offre une expérience immersive dans l'art de vivre méditerranéen. Avec sa grande salle lumineuse, sa terrasse ensoleillée et son terrain de pétanque, l'établissement propose une ambiance conviviale et festive, idéale pour partager des moments entre amis ou en famille. La carte met à l'honneur les classiques de la cuisine italienne, tels que les pizzas napolitaines, les pâtes fraîches et les burratas, tout en proposant des recettes inspirées des côtes siciliennes. 
+                    Vous pouvez consulter leur site web : <a href="https://antoniomarcopizzeria.com/restaurants/bella-vista-caluire/">Bella Vista d'Antonio & Marco.</a>
+                </p>
+                <p class="restaurant-tags">ITALIEN</p>
+            </div>
+        </li>
+
+        </ul>
+
+    <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
+
+</body>
+</html>
