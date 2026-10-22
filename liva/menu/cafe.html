@@ -1,157 +1,80 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cafés & Bars</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Open+Sans&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --background: #F7F3E9;
-      --text-primary: #1f1f1f;
-      --hover-dark: #555;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: var(--background);
-      color: var(--text-primary);
-      padding: 1rem;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      letter-spacing: 2px;
-    }
-
-    .divider {
-      text-align: center;
-      margin-bottom: 1rem;
-      font-size: 2rem;
-    }
-
-    p.description {
-      text-align: center;
-      font-size: 0.95rem;
-      margin: 0 1rem 2rem 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: none;
-      border: none;
-      box-shadow: none;
-    }
-
-    .card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 10px;
-    }
-
-    .card-content {
-      padding: 0.5rem 0;
-    }
-
-    .card h3 {
-      font-size: 1rem;
-      font-weight: bold;
-      margin: 0.5rem 0 0.3rem 0;
-      font-family: 'Open Sans', sans-serif;
-    }
-
-    .card p {
-      font-size: 0.85rem;
-      margin: 0.3rem 0;
-    }
-
-    .card .address {
-      font-size: 0.75rem;
-      color: #666;
-    }
-
-    .home-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 40px;
-      color: var(--text-primary);
-      cursor: pointer;
-      transition: opacity 250ms ease, color 250ms ease;
-      z-index: 100;
-    }
-
-    .home-button:hover {
-      color: var(--hover-dark);
-      opacity: 0.8;
-    }
-
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafés &amp; Bars</title>
+  <link rel="icon" type="image/png" href="https://studiodelhorloge.fr/logo.png?v=6">
+<link rel="shortcut icon" type="image/png" href="https://studiodelhorloge.fr/logo.png?v=6">
+  <link rel="stylesheet" href="../assets/livret-theme.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="livret-page page-cafe">
+  <div class="livret-shell">
+    <nav class="livret-topbar" aria-label="Navigation du livret">
+      <a class="livret-back" href="../index.html">← Accueil</a>
+      <span class="livret-topbrand">Studio de l’Horloge</span>
+    </nav>
 
-  <h1>CAFÉ - BARS</h1>
-  <div class="divider">|</div>
-  <p class="description">
-    Découvrez les endroits idéals pour savourer de délicieuses boissons et se relaxer.
-  </p>
+    <header class="header">
+      <h1>CAFÉ - BARS</h1>
+      <hr>
+      <p class="intro-text">
+        Découvrez les endroits idéals pour savourer de délicieuses boissons et se relaxer.
+      </p>
+    </header>
 
-  <div class="grid">
-    <div class="card">
-      <img src="../image/cafe/cafe1.jpg" alt="Café Lisa">
-      <div class="card-content">
-        <h3>CAILLOU CAFÉ COMPTOIR</h3>
-        <p class="address">📍 60 Quai de Pierre-Scize, 69005 Lyon</p>
-        <p>Le Caillou propose une carte variée, allant des cafés de spécialité aux plats faits maison comme des hot-dogs gourmets, des tapas et des pâtisseries. Les visiteurs apprécient particulièrement la qualité des produits et le service attentionné . De plus, l'établissement participe à des initiatives anti-gaspillage en collaborant avec des plateformes telles que Too Good To Go .</p>
-      </div>
-    </div>
-<!--
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200?text=Café+Courrèges" alt="Café Courrèges">
-      <div class="card-content">
-        <h3>CAFÉ COURRÈGES</h3>
-        <p class="address">📍 127 rue des chemins, 34000 Montpellier</p>
-        <p>Mettez votre description ici. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-    </div>
--->
-    <div class="card">
-      <img src="../image/cafe/bar1.jpg" alt="Bar Lisita">
-      <div class="card-content">
-        <h3>LES TERRASSES DE L’ÎLE BARBE</h3>
-        <p class="address">📍 3 Quai Raoul Carrié, 69009 Lyonr</p>
-        <p>Situé en bord Saône dans un cadre calme avec une vue dégagée sur le fleuve et l'île Barbe, Les terrasses de l'île Barbe vous propose une multitude de plats frais et bios adaptés a tout les palais.</p>
-      </div>
-    </div>
-<!--
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200?text=Bar+Roma" alt="Bar Roma">
-      <div class="card-content">
-        <h3>BAR ROMA</h3>
-        <p class="address">📍 227 rue des chemins, 34000 Montpellier</p>
-        <p>Mettez votre description ici. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-    </div>
+    <ul class="restaurant-list">
+      <li class="restaurant-item">
+        <div class="restaurant-image">
+          <img src="../image/cafe/cafe1.jpg" alt="Café Lisa">
+        </div>
+        <div class="restaurant-details">
+          <h3>CAILLOU CAFÉ COMPTOIR</h3>
+          <p class="restaurant-address">📍 60 Quai de Pierre-Scize, 69005 Lyon</p>
+          <p class="restaurant-description">Le Caillou propose une carte variée, allant des cafés de spécialité aux plats faits maison comme des hot-dogs gourmets, des tapas et des pâtisseries. Les visiteurs apprécient particulièrement la qualité des produits et le service attentionné . De plus, l'établissement participe à des initiatives anti-gaspillage en collaborant avec des plateformes telles que Too Good To Go .</p>
+        </div>
+      </li>
+
+      <!--
+      <li class="restaurant-item">
+        <div class="restaurant-image">
+          <img src="https://via.placeholder.com/300x200?text=Café+Courrèges" alt="Café Courrèges">
+        </div>
+        <div class="restaurant-details">
+          <h3>CAFÉ COURRÈGES</h3>
+          <p class="restaurant-address">📍 127 rue des chemins, 34000 Montpellier</p>
+          <p class="restaurant-description">Mettez votre description ici. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </li>
+      -->
+
+      <li class="restaurant-item">
+        <div class="restaurant-image">
+          <img src="../image/cafe/bar1.jpg" alt="Bar Lisita">
+        </div>
+        <div class="restaurant-details">
+          <h3>LES TERRASSES DE L’ÎLE BARBE</h3>
+          <p class="restaurant-address">📍 3 Quai Raoul Carrié, 69009 Lyonr</p>
+          <p class="restaurant-description">Situé en bord Saône dans un cadre calme avec une vue dégagée sur le fleuve et l'île Barbe, Les terrasses de l'île Barbe vous propose une multitude de plats frais et bios adaptés a tout les palais.</p>
+        </div>
+      </li>
+
+      <!--
+      <li class="restaurant-item">
+        <div class="restaurant-image">
+          <img src="https://via.placeholder.com/300x200?text=Bar+Roma" alt="Bar Roma">
+        </div>
+        <div class="restaurant-details">
+          <h3>BAR ROMA</h3>
+          <p class="restaurant-address">📍 227 rue des chemins, 34000 Montpellier</p>
+          <p class="restaurant-description">Mettez votre description ici. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </li>
+      -->
+    </ul>
   </div>
--->
-  <a href="https://alexandrecouto.github.io/Horloge/" class="home-button" aria-label="Retour accueil">🏠</a>
-
 </body>
 </html>
